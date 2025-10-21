@@ -1,0 +1,93 @@
+# -- name to partially override common.names.name
+nameOverride: ""
+# -- name to fully override common.names.fullname
+fullnameOverride: ""
+
+# -- configuration to be shared between the authentication components
+authentication:
+  generatePasswords:
+    # -- should a password for the database connection of authentication components be generated in the cluster
+    enabled: true
+    #-- name of the secret to put the generated password into
+    secretName: authentication-database-secret
+
+# -- configuration for the mysql to be deployed as part of the connector, see https://github.com/bitnami/charts/tree/main/bitnami/mysql for all options
+mysql:
+  # -- should it be enabled? set to false if one outside the chart is used.
+  enabled: true
+  global:
+    security:
+      # allow the image from the legacy repo
+      allowInsecureImages: true
+  # -- configuration of the used image
+  image:
+    # -- repository where the image is held, see https://github.com/bitnami/charts/issues/35164 for further info
+    repository: bitnamilegacy/mysql
+  # -- allows to set a fixed name for the services
+  fullnameOverride: authentication-mysql
+  # -- configure authentication to mysql
+  auth:
+    # -- name of the secret to take the passowrds from
+    existingSecret: authentication-database-secret
+  # -- scripts to be executed on db startup
+  initdbScripts:
+    create.sql: |
+      CREATE DATABASE tildb;
+      CREATE DATABASE ccsdb;
+
+# -- configuration for the trusted-issuers-list to be deployed as part of the connector, see https://github.com/FIWARE/helm-charts/tree/main/charts/trusted-issuers-list for all options
+trusted-issuers-list:
+  # -- should it be enabled? set to false if one outside the chart is used.
+  enabled: true
+  # -- allows to set a fixed name for the services
+  fullnameOverride: trusted-issuers-list
+  # -- connection to the database
+  database:
+    # -- should persistence be used?
+    persistence: true
+    # -- name of the db user
+    username: root
+    # -- configuration for the existing secret to get the passwords from
+    existingSecret:
+      enabled: true
+      name: authentication-database-secret
+      key: mysql-root-password
+    # -- host of the database
+    host: authentication-mysql
+    # -- name of the schema inside the db
+    name: tildb
+
+# -- configuration for the vcverifier to be deployed as part of the connector, see https://github.com/FIWARE/helm-charts/tree/main/charts/vcverifier for all options
+vcverifier:
+  # -- should it be enabled? set to false if one outside the chart is used.
+  enabled: true
+  # -- allows to set a fixed name for the services
+  fullnameOverride: verifier
+  # -- configuration for the m2m flow, in case the tir is requiring authentication
+  m2m:
+    # -- we do not need authentication here
+    authEnabled: false
+
+# -- configuration for the credentials-config-service to be deployed as part of the connector, see https://github.com/FIWARE/helm-charts/tree/main/charts/credentials-config-service for all options
+credentials-config-service:
+  # -- should it be enabled? set to false if one outside the chart is used.
+  enabled: true
+  # -- allows to set a fixed name for the services
+  fullnameOverride: credentials-config-service
+  # -- connection to the database
+  database:
+    # -- should persistence be used?
+    persistence: true
+    # -- name of the db user
+    username: root
+    # -- configuration for the existing secret to get the passwords from
+    existingSecret:
+      enabled: true
+      name: authentication-database-secret
+      key: mysql-root-password
+    # -- host of the database
+    host: authentication-mysql
+    # -- name of the schema inside the db
+    name: ccsdb
+  registration:
+    enabled: false

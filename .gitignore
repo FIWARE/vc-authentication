@@ -1,0 +1,7 @@
+*.tgz
+charts/vc-authentication/charts/*
+.DS_Store
+.vscode/
+.idea/
+*.iml
+*.orig

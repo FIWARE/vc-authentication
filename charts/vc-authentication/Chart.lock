@@ -1,0 +1,15 @@
+dependencies:
+- name: vcverifier
+  repository: https://fiware.github.io/helm-charts
+  version: 4.1.2
+- name: credentials-config-service
+  repository: https://fiware.github.io/helm-charts
+  version: 2.1.12
+- name: trusted-issuers-list
+  repository: https://fiware.github.io/helm-charts
+  version: 0.10.3
+- name: mysql
+  repository: https://charts.bitnami.com/bitnami
+  version: 12.2.2
+digest: sha256:4e20845a9bd65cc76a8bebf585b4df79bd085ccb8f7f6df0c8de1d8e7dc09e26
+generated: "2025-10-21T12:32:50.20116+02:00"

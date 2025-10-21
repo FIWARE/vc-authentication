@@ -1,0 +1,22 @@
+apiVersion: v2
+name: vc-authentication
+description: Umbrella Chart for the FIWARE vc-authentication, combining all essential parts to be used by a participant.
+type: application
+version: 0.0.1
+dependencies:
+  - name: vcverifier
+    condition: vcverifier.enabled
+    version: 4.1.2
+    repository: https://fiware.github.io/helm-charts
+  - name: credentials-config-service
+    condition: credentials-config-service.enabled
+    version: 2.1.12
+    repository: https://fiware.github.io/helm-charts
+  - name: trusted-issuers-list
+    condition: trusted-issuers-list.enabled
+    version: 0.10.3
+    repository: https://fiware.github.io/helm-charts
+  - name: mysql
+    condition: mysql.enabled
+    version: 12.2.2
+    repository: https://charts.bitnami.com/bitnami
