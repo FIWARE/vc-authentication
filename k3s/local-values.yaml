@@ -1,0 +1,12 @@
+mysql:
+  primary:
+    persistence:
+      enabled: false
+
+vcverifier:
+  ingress:
+    enabled: true
+    hosts:
+      - host: my-verifier.127.0.0.1.nip.io
+        paths:
+        - /
