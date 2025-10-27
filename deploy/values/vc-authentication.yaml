@@ -1,0 +1,36 @@
+authentication:
+  mysqlRootPassword: eofUpsr1ru5x60tMHWzUSxur1lxNyN
+  mysqlReplicationPassword: mRBd34c7I1Bq9zFL@tPN6E$IIB^rfyWd
+  mysqlPassword: BewlyMBIb5^Ly8jB!$kKpIH^z!VIq#af
+
+mysql:
+  auth:
+    rootPassword: eofUpsr1ru5x60tMHWzUSxur1lxNyN
+    password: BewlyMBIb5^Ly8jB!$kKpIH^z!VIq#af
+  primary:
+    persistence:
+      enabled: false
+
+vcverifier:
+  ingress:
+    enabled: true
+    className: nginx
+    hosts:
+      - host: verifier.127.0.0.1.nip.io
+        paths:
+        - /
+
+trusted-issuers-list:
+  ingress:
+    tir:
+      annotations:
+        kubernetes.io/ingress.class: "nginx" # Workaround since chart does not set className properly
+      enabled: true
+      hosts:
+        - host: tir.127.0.0.1.nip.io
+    til:
+      enabled: true
+      annotations:
+        kubernetes.io/ingress.class: "nginx" # Workaround since chart does not set className properly
+      hosts:
+        - host: til.127.0.0.1.nip.io

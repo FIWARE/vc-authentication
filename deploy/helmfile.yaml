@@ -1,0 +1,64 @@
+repositories:
+- name: ingress-nginx
+  url: https://kubernetes.github.io/ingress-nginx
+- name: postgres-operator
+  url: https://opensource.zalando.com/postgres-operator/charts/postgres-operator
+
+
+releases:
+- name: ingress-nginx
+  namespace: ingress-nginx
+  chart: ingress-nginx/ingress-nginx
+  version: 4.13.1
+  labels:
+    deploy: infra
+
+- name: psql
+  namespace: keycloak
+  chart: postgres-operator/postgres-operator
+  version: 1.13.0
+  labels:
+    deploy: infra
+  hooks:
+  - events: ["postsync"]
+    showlogs: true
+    command: "kubectl"
+    args:
+      - "apply"
+      - "-n"
+      - "{{ .Release.Namespace }}"
+      - "-f"
+      - "./config/postgresql.yaml"
+
+# - name: keycloak
+#   namespace: keycloak
+#   chart: oci://registry-1.docker.io/bitnamicharts/keycloak
+#   version: 24.5.2
+#   labels:
+#     deploy: infra
+#   needs:
+#     - keycloak/psql
+#   values:
+#     - values/keycloak.yaml
+
+- name: did-helper
+  namespace: keycloak
+  chart: ../charts/did-helper
+  version: 0.0.1
+  labels:
+    deploy: infra
+  needs:
+    - ingress-nginx/ingress-nginx
+  values:
+    - values/did-helper.yaml
+
+- name: vc-authentication
+  namespace: vc-authentication
+  chart: ../charts/vc-authentication
+  version: 0.0.1
+  labels:
+    deploy: vc-authentication
+  needs:
+    - ingress-nginx/ingress-nginx
+  values:
+    - values/vc-authentication.yaml

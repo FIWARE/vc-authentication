@@ -134,91 +134,10 @@
                                 https://raw.githubusercontent.com/rancher/local-path-provisioner/v0.0.30/deploy/local-path-storage.yaml
                             </url>
                             <unpack>false</unpack>
-                            <outputDirectory>${project.build.directory}/k3s/infra</outputDirectory>
+                            <outputDirectory>${project.build.directory}/tmp</outputDirectory>
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
-            <!-- copy the charts to the target repo to keep the sources clean -->
-            <plugin>
-                <artifactId>maven-resources-plugin</artifactId>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>copy-resources-vc-authentication</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.build.directory}/charts</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>${main.basedir}/charts</directory>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>copy-resources-namespaces</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.build.directory}/k3s/namespaces</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>${main.basedir}/k3s/namespaces</directory>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>copy-resources-infra</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.build.directory}/k3s/infra</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>${main.basedir}/k3s/infra</directory>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <!-- render the charts -->
-            <plugin>
-                <groupId>io.kokuwa.maven</groupId>
-                <artifactId>helm-maven-plugin</artifactId>
-                <version>${version.io.kokuwa.helm-maven-plugin}</version>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
-                    <executions>
-                        <execution>
-                            <id>template-vc-authentication</id>
-                            <goals>
-                                <goal>init</goal>
-                                <goal>dependency-update</goal>
-                                <goal>template</goal>
-                            </goals>
-                            <phase>package</phase>
-                            <configuration>
-                                <chartDirectory>${project.build.directory}/charts/vc-authentication</chartDirectory>
-                                <skipTemplate>false</skipTemplate>
-                                <templateGenerateName>true</templateGenerateName>
-                                <templateOutputDir>${project.build.directory}/k3s/vc-authentication</templateOutputDir>
-                                <additionalArguments>--name-template=vc-authentication --namespace=vc-authentication -f ${main.basedir}/k3s/local-values.yaml</additionalArguments>
-                            </configuration>
-                        </execution>
-                    </executions>
             </plugin>
             <plugin>
                 <groupId>io.kokuwa.maven</groupId>
@@ -227,14 +146,14 @@
                 <configuration>
                     <skip>true</skip>
                     <portBindings>
-                        <!-- NGINX ingress controller http & https-->
-                        <portBinding>80:80</portBinding>
+                        <!-- NGINX ingress controller http & https -->
+                        <portBinding>80:80</portBinding> 
                         <portBinding>443:443</portBinding>
                     </portBindings>
                 </configuration>
                 <executions>
                     <execution>
-                        <id>create-namespaces</id>
+                        <id>deploy-local-storage</id>
                         <phase>deploy</phase>
                         <goals>
                             <goal>run</goal>
@@ -242,31 +161,7 @@
                         </goals>
                         <configuration>
                             <failIfExists>false</failIfExists>
-                            <manifests>${project.build.directory}/k3s/namespaces</manifests>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>deploy-infra</id>
-                        <phase>deploy</phase>
-                        <goals>
-                            <goal>run</goal>
-                            <goal>apply</goal>
-                        </goals>
-                        <configuration>
-                            <failIfExists>false</failIfExists>
-                            <manifests>${project.build.directory}/k3s/infra</manifests>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>deploy-vc-authentication</id>
-                        <phase>deploy</phase>
-                        <goals>
-                            <goal>run</goal>
-                            <goal>apply</goal>
-                        </goals>
-                        <configuration>
-                            <failIfExists>false</failIfExists>
-                            <manifests>${project.build.directory}/k3s/vc-authentication</manifests>
+                            <manifests>${project.build.directory}/tmp/local-path-storage.yaml</manifests>
                         </configuration>
                     </execution>
                     <!-- <execution>
@@ -302,6 +197,30 @@
                             <timeout>1000000</timeout>
                         </configuration>
                     </execution> -->
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.1.1</version>
+                <executions>
+                    <execution>
+                        <id>test-env</id>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>helmfile</executable>
+                            <arguments>
+                                <argument>sync</argument>
+                                <argument>-f</argument>
+                                <argument>deploy/helmfile.yaml</argument>
+                                <argument>--wait</argument>
+                            </arguments>
+                            <skip>${skipITs}</skip>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
         </plugins>

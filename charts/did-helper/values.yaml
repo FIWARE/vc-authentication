@@ -1,0 +1,27 @@
+# Service configuration
+serviceType: ClusterIP
+port: 80
+
+# Name of the Kubernetes Secret containing the 'store-pass' key
+secret:
+  # Flag to enable/disable the conditional Secret creation.
+  create: true
+  # Name of the Secret to use/create.
+  name: did-helper-secret
+  # Optional fixed password (if provided, it will be used).
+  # If this field is empty, a random password will be generated if 'create' is true.
+  storePass: ""
+
+# Certificate values used by the initContainer to generate DID material
+cert:
+  country: "ES"
+  state: "Madrid"
+  locality: "Madrid"
+  organization: "DSC Org"
+  commonName: "did-helper.local"
+  
+# Ingress configuration
+ingress:
+  enabled: true  # Flag to enable or disable the Ingress resource
+  host: did.tusdominio.com # The hostname for the Ingress rule
+  className: nginx # The Ingress class name to use
