@@ -10,6 +10,11 @@ authentication:
     enabled: true
     #-- name of the secret to put the generated password into
     secretName: authentication-database-secret
+  # If a value is provided, it will override the existing/random logic.
+  # If left empty ("") or commented out, the template will fall back to create new randAlphaNum.
+  mysqlRootPassword: "" # e.g., "MyStaticRootPass123"
+  mysqlReplicationPassword: "" # e.g., "MyStaticReplicaPass456"
+  mysqlPassword: "" # e.g., "MyAppUserPass789"
 
 # -- configuration for the mysql to be deployed as part of the connector, see https://github.com/bitnami/charts/tree/main/bitnami/mysql for all options
 mysql:
