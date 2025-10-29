@@ -4,13 +4,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.fiware.dataspace</groupId>
-    <artifactId>connector</artifactId>
+    <groupId>org.fiware</groupId>
+    <artifactId>vc-authentication</artifactId>
     <version>0.0.1</version>
     <packaging>pom</packaging>
-    <!-- <modules>
+    <modules>
         <module>it</module>
-    </modules> -->
+    </modules>
 
     <properties>
         <jdk.version>17</jdk.version>
@@ -18,7 +18,6 @@
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <version.io.kokuwa.maven.k3s-plugin>1.3.0</version.io.kokuwa.maven.k3s-plugin>
-        <version.io.kokuwa.helm-maven-plugin>6.13.0</version.io.kokuwa.helm-maven-plugin>
         <version.org.apache.maven.plugins.maven-install>3.1.1</version.org.apache.maven.plugins.maven-install>
         <version.org.apache.maven.plugins.maven-source>2.4</version.org.apache.maven.plugins.maven-source>
         <version.org.apache.maven.plugins.maven-jar>3.3.0</version.org.apache.maven.plugins.maven-jar>
@@ -61,7 +60,7 @@
 
             </plugin>
             <!-- disable jar/surefire -->
-            <!-- <plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>${version.org.apache.maven.plugins.maven-jar}</version>
@@ -79,8 +78,8 @@
                         <phase/>
                     </execution>
                 </executions>
-            </plugin> -->
-            <!-- <plugin>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <version>${version.org.apache.maven.plugins.maven-failsafe}</version>
@@ -106,7 +105,7 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin> -->
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
@@ -164,45 +163,15 @@
                             <manifests>${project.build.directory}/tmp/local-path-storage.yaml</manifests>
                         </configuration>
                     </execution>
-                    <!-- <execution>
-                        <id>apply-certs</id>
-                        <phase>deploy</phase>
-                        <goals>
-                            <goal>apply</goal>
-                        </goals>
-                        <configuration>
-                            <manifests>${project.build.directory}/k3s/certs</manifests>
-                            <timeout>50000</timeout>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>apply-mongo-operator</id>
-                        <phase>deploy</phase>
-                        <goals>
-                            <goal>apply</goal>
-                        </goals>
-                        <configuration>
-                            <manifests>${project.build.directory}/k3s/infra/mongo-operator</manifests>
-                            <timeout>50000</timeout>
-                        </configuration>
-                    </execution> -->
-                    <!-- <execution>
-                        <id>apply-participants</id>
-                        <phase>deploy</phase>
-                        <goals>
-                            <goal>apply</goal>
-                        </goals>
-                        <configuration>
-                            <manifests>${project.build.directory}/k3s</manifests>
-                            <timeout>1000000</timeout>
-                        </configuration>
-                    </execution> -->
                 </executions>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>3.1.1</version>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
                 <executions>
                     <execution>
                         <id>deploy-local-env</id>
@@ -215,19 +184,15 @@
                             <arguments>
                                 <argument>sync</argument>
                                 <argument>-f</argument>
-                                <argument>deploy/helmfile.yaml</argument>
+                                <argument>${main.basedir}/deploy/helmfile.yaml</argument>
                                 <argument>--wait</argument>
                             </arguments>
+                            <environmentVariables>
+                                <KUBECONFIG>${main.basedir}/target/k3s.yaml</KUBECONFIG>
+                            </environmentVariables>
                             <skip>${skipITs}</skip>
                         </configuration>
                     </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>3.1.1</version>
-                <executions>
                     <execution>
                         <id>wait-for-local-env</id>
                         <phase>deploy</phase>
@@ -245,6 +210,9 @@
                                 <argument>--selector=app.kubernetes.io/instance=vc-authentication</argument>
                                 <argument>--timeout=300s</argument>
                             </arguments>
+                            <environmentVariables>
+                                <KUBECONFIG>${main.basedir}/target/k3s.yaml</KUBECONFIG>
+                            </environmentVariables>
                             <skip>${skipITs}</skip>
                         </configuration>
                     </execution>
@@ -258,28 +226,6 @@
             <build>
                 <plugins>
                     <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-antrun-plugin</artifactId>
-                        <version>1.8</version>
-                        <executions>
-                            <execution>
-                                <id>prepare-certificates</id>
-                                <phase>generate-test-sources</phase>
-                                <goals>
-                                    <goal>run</goal>
-                                </goals>
-                                <!-- <configuration>
-                                    <tasks>
-                                        <exec executable="/bin/bash">
-                                            <arg value="${main.basedir}/helpers/certs/generate-certs.sh" />
-                                            <arg value="${main.basedir}/k3s" />
-                                        </exec>
-                                    </tasks>
-                                </configuration> -->
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
                         <groupId>io.github.download-maven-plugin</groupId>
                         <artifactId>download-maven-plugin</artifactId>
                         <version>2.0.0</version>
@@ -289,13 +235,6 @@
                     </plugin>
                     <plugin>
                         <artifactId>maven-resources-plugin</artifactId>
-                        <configuration>
-                            <skip>false</skip>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <groupId>io.kokuwa.maven</groupId>
-                        <artifactId>helm-maven-plugin</artifactId>
                         <configuration>
                             <skip>false</skip>
                         </configuration>
