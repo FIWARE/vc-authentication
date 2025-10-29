@@ -19,6 +19,59 @@ vcverifier:
       - host: verifier.127.0.0.1.nip.io
         paths:
         - /
+  deployment:
+    verifier:
+      tirAddress: http://tir.127.0.0.1.nip.io/
+      did: did:key:myverifier
+      supportedModes: ["byValue","byReference"]
+      clientIdentification:
+        keyPath: /certificate/client.key.pem
+        requestKeyAlgorithm: ES256
+        id: x509_san_dns:provider-verifier.io
+        certificatePath: /certificate/client-chain-bundle.cert.pem
+    server:
+      host: https://verifier.127.0.0.1.nip.io
+    configRepo:
+      configEndpoint: http://credentials-config-service:8080
+    additionalVolumes:
+      - name: certificates
+        secret:
+          secretName: verifier-certs
+      # add the self generated root ca to the system truststore
+      - name: root-ca
+        emptyDir: {}
+    additionalVolumeMounts:
+      - name: certificates
+        mountPath: /certificate
+      # add the self generated root ca to the system truststore
+      - name: root-ca
+        mountPath: /etc/ssl/cert.pem
+        subPath: cert.pem
+    # additionalEnvVars:
+    #   - name: HTTPS_PROXY
+    #     value: "http://squid-proxy.infra.svc.cluster.local:8888"
+    #   - name: HTTP_PROXY
+    #     value: "http://squid-proxy.infra.svc.cluster.local:8888"
+    #   - name: NO_PROXY
+    #     value: "credentials-config-service,w3.org,trusted-issuers-list"
+    initContainers:
+      # add the self generated root ca to the system truststore
+      - name: add-root-ca
+        image: alpine:3.21.3
+        command:
+          - /bin/sh
+        args:
+          - -c
+          - |
+            #!/bin/sh
+            cp /etc/ssl/cert.pem /root-ca/cert.pdata.typeem
+            cat /root-ca/cacert.pem >> /root-ca/cert.pem
+        volumeMounts:
+          - name: root-ca
+            mountPath: /root-ca
+          - name: certificates
+            mountPath: /root-ca/cacert.pem
+            subPath: cacert.pem
 
 trusted-issuers-list:
   ingress:
@@ -34,3 +87,20 @@ trusted-issuers-list:
         kubernetes.io/ingress.class: "nginx" # Workaround since chart does not set className properly
       hosts:
         - host: til.127.0.0.1.nip.io
+
+credentials-config-service:
+  registration:
+    enabled: true
+    services:
+      - id: data-service
+        defaultOidcScope: "default"
+        oidcScopes:
+          "default":
+            credentials:
+              - type: UserCredential
+                trustedParticipantsLists: []
+                trustedIssuersLists:
+                  - http://trusted-issuers-list:8080
+                jwtInclusion:
+                  enabled: true
+                  fullInclusion: true

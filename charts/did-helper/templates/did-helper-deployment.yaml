@@ -24,7 +24,7 @@ spec:
       # It's used here to generate DID material.
       initContainers:
         - name: init-did
-          image: quay.io/wi_stefan/did-helper:0.1.1
+          image: quay.io/wi_stefan/did-helper:{{ .Values.image.tag }}
           env:
             # Certificate environment variables passed from values.yaml
             - name: COUNTRY

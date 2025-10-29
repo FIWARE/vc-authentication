@@ -12,6 +12,14 @@ releases:
   version: 4.13.1
   labels:
     deploy: infra
+  hooks:
+  - events: ["postsync"]
+    showlogs: true
+    command: "kubectl"
+    args:
+      - "apply"
+      - "-f"
+      - "./config/coredns.yaml"
 
 - name: psql
   namespace: keycloak
@@ -30,16 +38,26 @@ releases:
       - "-f"
       - "./config/postgresql.yaml"
 
-# - name: keycloak
-#   namespace: keycloak
-#   chart: oci://registry-1.docker.io/bitnamicharts/keycloak
-#   version: 24.5.2
-#   labels:
-#     deploy: infra
-#   needs:
-#     - keycloak/psql
-#   values:
-#     - values/keycloak.yaml
+- name: keycloak
+  namespace: keycloak
+  chart: oci://registry-1.docker.io/bitnamicharts/keycloak
+  version: 24.5.2
+  labels:
+    deploy: infra
+  needs:
+    - keycloak/psql
+  values:
+    - values/keycloak.yaml
+  hooks:
+  - events: ["presync"]
+    showlogs: true
+    command: "kubectl"
+    args:
+      - "apply"
+      - "-n"
+      - "{{ .Release.Namespace }}"
+      - "-f"
+      - "./config/keycloak-config.yaml"
 
 - name: did-helper
   namespace: keycloak
@@ -62,3 +80,22 @@ releases:
     - ingress-nginx/ingress-nginx
   values:
     - values/vc-authentication.yaml
+  hooks:
+  - events: ["presync"]
+    showlogs: true
+    command: "kubectl"
+    args:
+      - "apply"
+      - "-n"
+      - "{{ .Release.Namespace }}"
+      - "-f"
+      - "./config/verifier-certs.yaml"
+  - events: ["postsync"]
+    showlogs: true
+    command: "kubectl"
+    args:
+      - "apply"
+      - "-n"
+      - "{{ .Release.Namespace }}"
+      - "-f"
+      - "./config/config-job.yaml"
