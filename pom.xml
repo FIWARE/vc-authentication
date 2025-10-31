@@ -213,7 +213,20 @@
                                 <KUBECONFIG>${main.basedir}/target/k3s.yaml</KUBECONFIG>
                             </environmentVariables>
                         </configuration>
-                    </execution> 
+                    </execution>
+                    <execution>
+                        <id>wait-grace-period</id>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>sleep</executable>
+                            <arguments>
+                                <argument>30</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
         </plugins>

@@ -174,12 +174,6 @@
             <version>${version.org.keycloak}</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.fiware.vcAuthentication</groupId>
-            <artifactId>it</artifactId>
-            <version>0.0.1</version>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 
     <build>
@@ -279,7 +273,7 @@
                                     <environmentVariables>
                                         <KUBECONFIG>${main.basedir}/it/target/k3s.yaml</KUBECONFIG>
                                     </environmentVariables>
-                                </configuration>        
+                                </configuration>
                             </execution>
                             <execution>
                                 <id>wait-for-local-env</id>
@@ -288,7 +282,11 @@
                                     <environmentVariables>
                                         <KUBECONFIG>${main.basedir}/it/target/k3s.yaml</KUBECONFIG>
                                     </environmentVariables>
-                                </configuration>   
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>wait-grace-period</id>
+                                <phase>pre-integration-test</phase>
                             </execution>
                         </executions>
                     </plugin>
