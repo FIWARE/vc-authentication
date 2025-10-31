@@ -24,7 +24,7 @@ spec:
             echo "DID=${DID}"
 
             echo "--- 2. Registering UserCredential ---"
-            curl -s -v -X 'POST' \
+            curl -s -f -v -X 'POST' \
               'http://til.127.0.0.1.nip.io/issuer' \
               -H 'accept: */*' \
               -H 'Content-Type: application/json' \
