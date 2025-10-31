@@ -343,7 +343,9 @@ data:
           "redirectUris": [
             "/realms/test-realm/account/*"
           ],
-          "webOrigins": [],
+          "webOrigins": [
+            "https://keycloak.127.0.0.1.nip.io:8443"
+          ],
           "notBefore": 0,
           "bearerOnly": false,
           "consentRequired": false,
@@ -389,7 +391,9 @@ data:
           "redirectUris": [
             "/realms/test-realm/account/*"
           ],
-          "webOrigins": [],
+          "webOrigins": [
+            "https://keycloak.127.0.0.1.nip.io:8443"
+          ],
           "notBefore": 0,
           "bearerOnly": false,
           "consentRequired": false,

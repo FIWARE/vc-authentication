@@ -5,8 +5,7 @@ image:
   repository: bitnamilegacy/keycloak
 postgresql:
   enabled: false
-# ToDo: according to documentation this should allow to login, but it does not seem to work
-# https://www.keycloak.org/docs/latest/upgrading/index.html#deprecated-proxy-option
+
 proxyHeaders: xforwarded
 httpEnabled: true
 
