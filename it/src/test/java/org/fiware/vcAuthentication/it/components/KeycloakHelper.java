@@ -2,20 +2,12 @@ package org.fiware.vcAuthentication.it.components;
 
 import jakarta.ws.rs.client.ClientBuilder;
 import lombok.RequiredArgsConstructor;
-import org.jboss.resteasy.client.jaxrs.ResteasyClient;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
-import org.keycloak.admin.client.Keycloak;
 import org.keycloak.admin.client.KeycloakBuilder;
 import org.keycloak.admin.client.token.TokenManager;
-import org.keycloak.representations.idm.ClientRepresentation;
 
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
-import java.security.cert.X509Certificate;
-import java.util.List;
 
 /**
  * @author <a href="https://github.com/wistefan">Stefan Wiedemann</a>

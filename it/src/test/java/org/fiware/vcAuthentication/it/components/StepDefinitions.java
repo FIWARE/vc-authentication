@@ -8,38 +8,27 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.cucumber.java.After;
 import io.cucumber.java.Before;
-import io.cucumber.java.PendingException;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import jakarta.ws.rs.core.MediaType;
 import lombok.extern.slf4j.Slf4j;
-import okhttp3.*;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import org.apache.http.HttpStatus;
-import org.awaitility.Awaitility;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.fiware.vcAuthentication.it.components.model.OpenIdConfiguration;
 import org.keycloak.common.crypto.CryptoIntegration;
-import org.opentest4j.AssertionFailedError;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URL;
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
 import java.security.Security;
 import java.security.interfaces.RSAPublicKey;
-import java.time.Duration;
-import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.fiware.vcAuthentication.it.components.OrganizationEnvironment.TEST_USER_NAME;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author <a href="https://github.com/wistefan">Stefan Wiedemann</a>

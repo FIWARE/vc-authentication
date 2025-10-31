@@ -8,16 +8,7 @@ import okhttp3.*;
 import org.apache.http.HttpStatus;
 import org.bouncycastle.jce.interfaces.ECPublicKey;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
-import org.fiware.vcAuthentication.it.components.model.Credential;
-import org.fiware.vcAuthentication.it.components.model.CredentialOffer;
-import org.fiware.vcAuthentication.it.components.model.CredentialRequest;
-import org.fiware.vcAuthentication.it.components.model.Grant;
-import org.fiware.vcAuthentication.it.components.model.IssuerConfiguration;
-import org.fiware.vcAuthentication.it.components.model.OfferUri;
-import org.fiware.vcAuthentication.it.components.model.OpenIdConfiguration;
-import org.fiware.vcAuthentication.it.components.model.SupportedConfiguration;
-import org.fiware.vcAuthentication.it.components.model.TokenResponse;
-import org.fiware.vcAuthentication.it.components.model.VerifiablePresentation;
+import org.fiware.vcAuthentication.it.components.model.*;
 import org.keycloak.crypto.ECDSASignatureSignerContext;
 import org.keycloak.crypto.KeyUse;
 import org.keycloak.crypto.KeyWrapper;
@@ -25,24 +16,13 @@ import org.keycloak.jose.jws.JWSBuilder;
 import org.keycloak.representations.JsonWebToken;
 
 import java.math.BigInteger;
-import java.security.KeyPair;
-import java.security.KeyPairGenerator;
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
-import java.security.Security;
+import java.security.*;
 import java.security.spec.ECGenParameterSpec;
 import java.time.Clock;
-import java.util.Base64;
-import java.util.HashMap;
-import java.util.HexFormat;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 import static org.fiware.vcAuthentication.it.components.TestUtils.OBJECT_MAPPER;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author <a href="https://github.com/wistefan">Stefan Wiedemann</a>
