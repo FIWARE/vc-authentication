@@ -41,7 +41,7 @@ releases:
 - name: keycloak
   namespace: keycloak
   chart: oci://registry-1.docker.io/bitnamicharts/keycloak
-  version: 24.5.2
+  version: 25.2.0
   labels:
     deploy: infra
   needs:

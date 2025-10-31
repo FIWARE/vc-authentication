@@ -3,11 +3,13 @@ global:
     allowInsecureImages: true
 image:
   repository: bitnamilegacy/keycloak
-  tag: 26.3.2-debian-12-r0
 postgresql:
   enabled: false
+# ToDo: according to documentation this should allow to login, but it does not seem to work
+# https://www.keycloak.org/docs/latest/upgrading/index.html#deprecated-proxy-option
 proxyHeaders: xforwarded
-proxy: edge
+httpEnabled: true
+
 auth:
   existingSecret: keycloak-master-secret
   passwordSecretKey: password
@@ -61,7 +63,7 @@ initContainers:
         mountPath: /did-material
 
   - name: prepare-envs
-    image: docker.io/bitnamilegacy/keycloak:26.2.1-debian-12-r0
+    image: docker.io/bitnamilegacy/keycloak:26.3.3-debian-12-r0
     command:
       - /bin/sh
     args:
@@ -102,7 +104,7 @@ extraVolumes:
 extraEnvVars:
   - name: KEYCLOAK_LOG_LEVEL
     value: INFO
-  - name: KEYCLOAK_HOSTNAME
+  - name: KC_HOSTNAME
     value: https://keycloak.127.0.0.1.nip.io:8443
   - name: KEYCLOAK_EXTRA_ARGS
     value: "--import-realm"
@@ -113,10 +115,5 @@ extraEnvVars:
       secretKeyRef:
         name: did-helper-secret
         key: store-pass
-  - name: KC_ADMIN_PASSWORD
-    valueFrom:
-      secretKeyRef:
-        name: keycloak-master-secret
-        key: password
   - name: KC_HEAP_SIZE
     value: "1024m"
