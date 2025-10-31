@@ -102,6 +102,8 @@ extraVolumes:
 extraEnvVars:
   - name: KEYCLOAK_LOG_LEVEL
     value: INFO
+  - name: KEYCLOAK_HOSTNAME
+    value: https://keycloak.127.0.0.1.nip.io:8443
   - name: KEYCLOAK_EXTRA_ARGS
     value: "--import-realm"
   - name: KC_FEATURES

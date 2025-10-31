@@ -4,12 +4,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.fiware.authentication</groupId>
+    <groupId>org.fiware.vcAuthentication</groupId>
     <artifactId>it</artifactId>
     <packaging>jar</packaging>
 
     <parent>
-        <artifactId>vc-authentication</artifactId>
+        <artifactId>vcAuthentication</artifactId>
         <groupId>org.fiware</groupId>
         <version>0.0.1</version>
     </parent>
@@ -104,6 +104,16 @@
 
         <!-- test -->
         <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+            <version>3.8.3</version>
+        </dependency>
+        <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>jwks-rsa</artifactId>
+            <version>0.9.0</version>
+        </dependency>
+        <dependency>
             <groupId>com.github.multiformats</groupId>
             <artifactId>java-multibase</artifactId>
             <version>${version.com.github.multiformat.multi-base}</version>
@@ -164,6 +174,12 @@
             <version>${version.org.keycloak}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.fiware.vcAuthentication</groupId>
+            <artifactId>it</artifactId>
+            <version>0.0.1</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -187,7 +203,7 @@
     </build>
 
     <profiles>
-        <!-- <profile>
+        <profile>
             <id>local</id>
             <build>
                 <plugins>
@@ -214,7 +230,7 @@
                     </plugin>
                 </plugins>
             </build>
-        </profile> -->
+        </profile>
         <profile>
             <id>test</id>
             <build>
@@ -242,6 +258,10 @@
                             <execution>
                                 <id>deploy-local-storage</id>
                                 <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                    <goal>apply</goal>
+                                </goals>
                             </execution>
                         </executions>
                     </plugin>

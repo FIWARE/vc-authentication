@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.fiware</groupId>
-    <artifactId>vc-authentication</artifactId>
+    <artifactId>vcAuthentication</artifactId>
     <version>0.0.1</version>
     <packaging>pom</packaging>
     <modules>
@@ -146,8 +146,8 @@
                     <skip>true</skip>
                     <portBindings>
                         <!-- NGINX ingress controller http & https -->
-                        <portBinding>80:80</portBinding> 
-                        <portBinding>443:443</portBinding>
+                        <portBinding>8080:80</portBinding>
+                        <portBinding>8443:443</portBinding>
                     </portBindings>
                 </configuration>
                 <executions>
@@ -190,7 +190,6 @@
                             <environmentVariables>
                                 <KUBECONFIG>${main.basedir}/target/k3s.yaml</KUBECONFIG>
                             </environmentVariables>
-                            <skip>${skipITs}</skip>
                         </configuration>
                     </execution>
                     <execution>
@@ -213,9 +212,8 @@
                             <environmentVariables>
                                 <KUBECONFIG>${main.basedir}/target/k3s.yaml</KUBECONFIG>
                             </environmentVariables>
-                            <skip>${skipITs}</skip>
                         </configuration>
-                    </execution>
+                    </execution> 
                 </executions>
             </plugin>
         </plugins>
@@ -234,15 +232,16 @@
                         </configuration>
                     </plugin>
                     <plugin>
-                        <artifactId>maven-resources-plugin</artifactId>
+                        <groupId>io.kokuwa.maven</groupId>
+                        <artifactId>k3s-maven-plugin</artifactId>
                         <configuration>
                             <skip>false</skip>
                         </configuration>
                     </plugin>
                     <plugin>
-                        <groupId>io.kokuwa.maven</groupId>
-                        <artifactId>k3s-maven-plugin</artifactId>
-                        <configuration>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                     <configuration>
                             <skip>false</skip>
                         </configuration>
                     </plugin>

@@ -21,7 +21,7 @@ data:
       "verifiableCredentialsEnabled": true,
       "enabled": true,
       "attributes": {
-        "frontendUrl": "https://keycloak.127.0.0.1.nip.io",
+        "frontendUrl": "https://keycloak.127.0.0.1.nip.io:8443",
         "issuerDid": "${DID}"
         ,
         
