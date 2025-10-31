@@ -82,7 +82,7 @@ public class StepDefinitions {
 
     @Then("the access token retrieved by the user for the registered service is valid.")
     public void validateAccessToken() throws Exception {
-        String accessToken = getAccessTokenForFancyMarketplace(USER_CREDENTIAL, DEFAULT_SCOPE, VERIFIER_ADDRESS);
+        String accessToken = getAccessToken(USER_CREDENTIAL, DEFAULT_SCOPE, VERIFIER_ADDRESS);
         verifyAccessToken(accessToken, VERIFIER_ADDRESS);
     }
 
@@ -91,17 +91,17 @@ public class StepDefinitions {
         NullPointerException thrown = assertThrows(
                 NullPointerException.class,
                 () -> {
-                    getAccessTokenForFancyMarketplace(USER_CREDENTIAL, DEFAULT_SCOPE, VERIFIER_ADDRESS);
+                    getAccessToken(USER_CREDENTIAL, DEFAULT_SCOPE, VERIFIER_ADDRESS);
                 },
-                "Expected getAccessTokenForFancyMarketplace() to throw NPE because credentials are not valid, but it didn't"
+                "Expected getAccessToken() to throw NPE because credentials are not valid, but it didn't"
         );
     }
 
-    private String getAccessTokenForFancyMarketplace(String credentialId, String scope, String targetAddress) throws Exception {
+    private String getAccessToken(String credentialId, String scope, String targetAddress) throws Exception {
         OpenIdConfiguration openIdConfiguration = OrganizationEnvironment.getOpenIDConfiguration(targetAddress);
-        assertTrue(openIdConfiguration.getGrantTypesSupported().contains(GRANT_TYPE_VP_TOKEN), "The M&P environment should support vp_tokens");
-        assertTrue(openIdConfiguration.getResponseModeSupported().contains(RESPONSE_TYPE_DIRECT_POST), "The M&P environment should support direct_post");
-        assertNotNull(openIdConfiguration.getTokenEndpoint(), "The M&P environment should provide a token endpoint.");
+        assertTrue(openIdConfiguration.getGrantTypesSupported().contains(GRANT_TYPE_VP_TOKEN), "The organization environment should support vp_tokens");
+        assertTrue(openIdConfiguration.getResponseModeSupported().contains(RESPONSE_TYPE_DIRECT_POST), "The organization environment should support direct_post");
+        assertNotNull(openIdConfiguration.getTokenEndpoint(), "The organization environment should provide a token endpoint.");
 
         return userWallet.exchangeCredentialForToken(openIdConfiguration, credentialId, scope);
     }

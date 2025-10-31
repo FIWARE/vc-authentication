@@ -16,7 +16,7 @@ authentication:
   mysqlReplicationPassword: ""
   mysqlPassword: ""
 
-# -- configuration for the mysql to be deployed as part of the connector, see https://github.com/bitnami/charts/tree/main/bitnami/mysql for all options
+# -- configuration for the mysql to be deployed as part of the vc-authentication, see https://github.com/bitnami/charts/tree/main/bitnami/mysql for all options
 mysql:
   # -- should it be enabled? set to false if one outside the chart is used.
   enabled: true
@@ -40,7 +40,7 @@ mysql:
       CREATE DATABASE tildb;
       CREATE DATABASE ccsdb;
 
-# -- configuration for the trusted-issuers-list to be deployed as part of the connector, see https://github.com/FIWARE/helm-charts/tree/main/charts/trusted-issuers-list for all options
+# -- configuration for the trusted-issuers-list to be deployed as part of the vc-authentication, see https://github.com/FIWARE/helm-charts/tree/main/charts/trusted-issuers-list for all options
 trusted-issuers-list:
   # -- should it be enabled? set to false if one outside the chart is used.
   enabled: true
@@ -62,7 +62,7 @@ trusted-issuers-list:
     # -- name of the schema inside the db
     name: tildb
 
-# -- configuration for the vcverifier to be deployed as part of the connector, see https://github.com/FIWARE/helm-charts/tree/main/charts/vcverifier for all options
+# -- configuration for the vcverifier to be deployed as part of the vc-authentication, see https://github.com/FIWARE/helm-charts/tree/main/charts/vcverifier for all options
 vcverifier:
   # -- should it be enabled? set to false if one outside the chart is used.
   enabled: true
@@ -84,7 +84,7 @@ vcverifier:
     # -- ingress tls configuration
     tls: []
 
-# -- configuration for the credentials-config-service to be deployed as part of the connector, see https://github.com/FIWARE/helm-charts/tree/main/charts/credentials-config-service for all options
+# -- configuration for the credentials-config-service to be deployed as part of the vc-authentication, see https://github.com/FIWARE/helm-charts/tree/main/charts/credentials-config-service for all options
 credentials-config-service:
   # -- should it be enabled? set to false if one outside the chart is used.
   enabled: true
