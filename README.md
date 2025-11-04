@@ -10,7 +10,12 @@ This repository provides a description of the FIWARE Verifiable Credential Authe
 - [Overview](#overview)
 - [Release Information](#release-information)
 - [Components](#components)
-- [Description of flows](#description-of-flows)
+- [Description of flows in vc-authentication](#description-of-flows-in-vc-authentication)
+  - [Registration](#registration)
+- [Deployment](#deployment)
+  - [Local Deployment](#local-deployment)
+  - [Deployment with Helm](#deployment-with-helm)
+- [Testing](#testing)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
