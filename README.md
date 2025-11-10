@@ -59,7 +59,33 @@ This section details the key interaction patterns and workflows within the FIWAR
 
 ### Registration
 
-ToDo
+For the vc-authentication component to ensure authenticated access for an entity, that entity must be pre-registered in the Trusted Issuer List as a trusted VC issuer.
+
+The following diagram illustrates the different steps for the registration:
+
+
+### Authenticated access to a service
+
+After registration, a user belonging to the registered entity can perform authenticated access to a target service using VCs.
+
+The following diagram illustrates the different steps for the authenticated access to a service (e.g. Context Broker):
+
+![vc-authentication-authenticated-access](doc/img/flows/authenticated_access.png)
+
+**Steps**
+
+* A LEAR (Legal Entity Appointed Representative) from the registered entity initiates access to the target application or service (e.g., Context Broker). To do this, the application requiring connection to the target service contacts the verifier's authentication portal, which displays a QR code that must be scanned by the user's wallet (steps 1–3).
+* The Verifier will request to the user (via his/her wallet) for VCs that acredit 
+  1. the user is a LEAR of the organization, 
+  2. (s)he owns credentials connected to roles meaningful for the operation that the organization issued to the user and 
+  3. some other VCs (steps 4-5). 
+  4. Optionally (ifconfigured), the wallet will check that the verifier belongs to a participant in the participant list.
+  5. Finally, it returns the requested VCs (step 7)
+* The Verifier checks whether the LEAR’s VC was issued by a trusted participant (step 8), and rest of VCs required were issued by trusted issuers, if configured (step 9). Note that the VC for accessing contract negotiation functions requires that the organization were previously registered in the contract negotiation module, otherwise it will not be found in local trusted issuers registry.
+* If verifications were ok, it issues a token (step 10) that is transmitted to the user (step 11)
+* Using the returned token, the user invokes the target application/service (Context Broker) (steps 12-13)
+* The target service verifies the token's signature by obtaining the verifier's public key (step 14). If the token signature is valid, access is granted to the request.
+
 
 ## Deployment
 
