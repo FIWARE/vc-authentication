@@ -38,7 +38,8 @@ Thus, being provided as Helm chart, the FIWARE Verifiable Credential Authenticat
 
 ## Release Information
 
-ToDo
+The FIWARE Verifiable Credential Authentication uses a continious integration flow, where every merge to the main-branch triggers a new release. Versioning follows [Semantic Versioning 2.0.0](https://semver.org/lang/de/), therefor only major changes will contain breaking changes. 
+Important releases will be listed below, with additional information linked:
 
 ## Components
 
