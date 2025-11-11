@@ -12,6 +12,9 @@ This repository provides a description of the FIWARE Verifiable Credential Authe
 - [Components](#components)
 - [Description of flows in vc-authentication](#description-of-flows-in-vc-authentication)
   - [Registration](#registration)
+  - [Authenticated access to a service](#authenticated-access-to-a-service)
+    - [Human-To-Machine (H2M)](#human-to-machine-h2m)
+    - [Machine-To-Machine (M2M)](#machine-to-machine-m2m)
 - [Deployment](#deployment)
   - [Local Deployment](#local-deployment)
   - [Deployment with Helm](#deployment-with-helm)
@@ -59,33 +62,63 @@ This section details the key interaction patterns and workflows within the FIWAR
 
 ### Registration
 
-For the vc-authentication component to ensure authenticated access for an entity, that entity must be pre-registered in the Trusted Issuer List as a trusted VC issuer.
+For the vc-authentication component to ensure authenticated access for an organization, A registration process must take place beforehand:
 
-The following diagram illustrates the different steps for the registration:
+* The organization requesting access must be pre-registered in the Trusted Issuer List as a trusted VC issuer.
+* Optionally, it can also be registered in a Trusted Participant List, if configured.
+* Additionally, the credential type(s) must be registered in the Credentials Config Service, specifying the Trusted Issuer List, the Trusted Participant List (optional), and the constraints associated with that credential type.
 
 
 ### Authenticated access to a service
 
-After registration, a user belonging to the registered entity can perform authenticated access to a target service using VCs.
+After registration, a user belonging to the registered organization can perform authenticated access to a target service using VCs.
 
-The following diagram illustrates the different steps for the authenticated access to a service (e.g. Context Broker):
+In the case of a user interacting with the service, this is a Human-To-Machine (H2M) interaction.
 
-![vc-authentication-authenticated-access](doc/img/flows/authenticated_access.png)
+In the other case of an application interacting with the service, this is a Machine-To-Machine (M2M) interaction.
+
+The following displays the different steps for the two different types of interactions
+
+#### Human-To-Machine (H2M)
+
+![vc-authentication-authenticated-access](doc/img/flows/authenticated_access_h2m.png)
 
 **Steps**
 
-* A LEAR (Legal Entity Appointed Representative) from the registered entity initiates access to the target application or service (e.g., Context Broker). To do this, the application requiring connection to the target service contacts the verifier's authentication portal, which displays a QR code that must be scanned by the user's wallet (steps 1–3).
+* A user (which belongs to the oganization that was issued a VC in step 0 that acredits him/her as user playing a relevant role) of the target service (i.e. Context Broker) request authentication 
+  in the vc-authentication (steps 1-3 involving scanning of QR code using the wallet)
 * The Verifier will request to the user (via his/her wallet) for VCs that acredit 
-  1. the user is a LEAR of the organization, 
-  2. (s)he owns credentials connected to roles meaningful for the operation that the organization issued to the user and 
-  3. some other VCs (steps 4-5). 
-  4. Optionally (ifconfigured), the wallet will check that the verifier belongs to a participant in the participant list.
-  5. Finally, it returns the requested VCs (step 7)
-* The Verifier checks whether the LEAR’s VC was issued by a trusted participant (step 8), and rest of VCs required were issued by trusted issuers, if configured (step 9). Note that the VC for accessing contract negotiation functions requires that the organization were previously registered in the contract negotiation module, otherwise it will not be found in local trusted issuers registry.
+  1. the user owns credentials connected to roles meaningful for the given product/application and 
+  2. some other VCs (steps 4-5). 
+  Optionally, the wallet will check that the verifier belongs to a participant (step 6) and return the 
+  requested VCs (step 7)
+* Verifier verifies whether the VC was issued by an organization that 
+  1. (optional) is a trusted participant of the data space (step 8) and 
+  2. is a trusted issuer of the VCs meaningful for the application (that is, VCs only organizations that are registered can issue), also checks whether other VCs required were issued by trusted issuers (steps 9)
 * If verifications were ok, it issues a token (step 10) that is transmitted to the user (step 11)
 * Using the returned token, the user invokes the target application/service (Context Broker) (steps 12-13)
-* The target service verifies the token's signature by obtaining the verifier's public key (step 14). If the token signature is valid, access is granted to the request.
+* The target service verifies the token's signature by obtaining the verifier's public key (step 14). If the token signature is valid, access is granted to the request
 
+
+#### Machine-To-Machine (M2M)
+
+![vc-authentication-authenticated-access](doc/img/flows/authenticated_access_m2m.png)
+
+* An application from the registered organization requests its authentication in the vc-authentication (steps 1)
+* The Verifier will request to the application for VCs that acredit 
+  1. the application owns credentials connected to roles meaningful for the given target service and 
+  2. some other VCs (steps 2-3). 
+  
+  Optionally, the wallet will check that the verifier belongs to a trsuted participant (step 4) and 
+  returns the requested VCs (step 5)
+* The verifier checks in the Credentials Config Service the configuration for the given type of credentials (step 6)
+* Optionally, the verifier verifies whether the VC was issued by an organization that is a trusted participant of the 
+  (step 7) is a trusted issuer of the VCs meaningful for the application (that is, VCs that 
+  only registered organizations can issue), also checks whether other VCs required were issued 
+  by trusted issuers (steps 8)
+* If verifications were ok, it issues a token that is transmitted to the application (steps 9)
+* Using the returned token, the application invokes the target service (step 10)
+* The target service verifies the token's signature by obtaining the verifier's public key (step 11). If the token signature is valid, access is granted to the request
 
 ## Deployment
 
