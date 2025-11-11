@@ -6,6 +6,7 @@ This repository provides a description of the FIWARE Verifiable Credential Authe
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**
 
 - [Overview](#overview)
 - [Release Information](#release-information)
