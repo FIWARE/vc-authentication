@@ -1,8 +1,19 @@
 # vc-authentication
 
+[![](https://nexus.lab.fiware.org/repository/raw/public/badges/chapters/security.svg)](https://github.com/FIWARE/catalogue/tree/master/security/README.md)
+
 The FIWARE Verifiable Credential Authentication (vc-authentication) is an integrated suite of components designed to facilitate authentication using Verifiable Credentials.
 
 This repository provides a description of the FIWARE Verifiable Credential Authentication, its technical implementation and deployment recipes.
+
+This project is part of [FIWARE](https://www.fiware.org/). For more information check the FIWARE Catalogue entry for
+[Security](https://github.com/FIWARE/catalogue/tree/master/security).
+
+| :books: [Documentation]()  |  :dart: [Roadmap](https://github.com/FIWARE/vc-authentication/tree/master/doc/ROADMAP.md)|
+|---|---|
+
+<details>
+<summary><strong>Table of Contents</strong></summary>
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -22,6 +33,8 @@ This repository provides a description of the FIWARE Verifiable Credential Authe
 - [Testing](#testing)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+</details>
 
 ## Overview
 The FIWARE Verifiable Credential Authentication solution enables secure and decentralized authentication mechanisms by leveraging Verifiable Credentials (VCs). It allows users to authenticate themselves using cryptographic proofs, enhancing security and privacy in digital interactions. It allows to:
@@ -183,3 +196,19 @@ The tests can be executed via:
 ```
 They will spin up the [Local Deployment](#local-deployment) and run 
 the [test-scenarios](./it/src/test/resources/it/mvds_basic.feature) against it.
+
+## How to contribute
+
+Please, check the doc [here](doc/CONTRIBUTING.md).
+
+## License
+vc-authentication is licensed under [MIT License](LICENSE).
+
+For the avoidance of doubt, the owners of this software
+wish to make a clarifying public statement as follows:
+
+> Please note that software derived as a result of modifying the source code of this
+> software in order to fix a bug or incorporate enhancements is considered a derivative 
+> work of the product. Software that merely uses or aggregates (i.e. links to) an otherwise 
+> unmodified version of existing software is not considered a derivative work, and therefore
+> it does not need to be released as under the same license, or even released as open source.
