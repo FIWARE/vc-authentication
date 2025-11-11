@@ -3,6 +3,10 @@ repositories:
   url: https://kubernetes.github.io/ingress-nginx
 - name: postgres-operator
   url: https://opensource.zalando.com/postgres-operator/charts/postgres-operator
+- name: fiware
+  url: https://fiware.github.io/helm-charts
+- name: bitnami
+  url: https://charts.bitnami.com/bitnami
 
 
 releases:
@@ -61,7 +65,7 @@ releases:
 
 - name: did-helper
   namespace: keycloak
-  chart: ../charts/did-helper
+  chart: ./aux-charts/did-helper
   version: 0.0.1
   labels:
     deploy: infra
