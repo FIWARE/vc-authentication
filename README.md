@@ -31,6 +31,8 @@ This project is part of [FIWARE](https://www.fiware.org/). For more information 
   - [Local Deployment](#local-deployment)
   - [Deployment with Helm](#deployment-with-helm)
 - [Testing](#testing)
+- [How to contribute](#how-to-contribute)
+- [License](#license)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
