@@ -9,7 +9,7 @@ on:
       - labeled
       - unlabeled
     branches:
-      - main
+      - master
 
 jobs:
 
@@ -115,8 +115,8 @@ jobs:
 
       - uses: actions/checkout@v3
         with:
-          ref: 'main'
-          path: main
+          ref: 'master'
+          path: master
           
       - name: Update versions
         shell: bash
@@ -135,7 +135,7 @@ jobs:
 
           for c in "${changedCharts[@]}"; do
               # get version from chart yaml
-              version=$(yq e '.version' "main/charts/$c/Chart.yaml")
+              version=$(yq e '.version' "master/charts/$c/Chart.yaml")
               major=$(cut -d'.' -f1 <<< "$version")
               minor=$(cut -d'.' -f2 <<< "$version")
               patch=$(cut -d'.' -f3 <<< "$version")
