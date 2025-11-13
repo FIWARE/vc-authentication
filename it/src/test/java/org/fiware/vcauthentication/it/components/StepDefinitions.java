@@ -1,4 +1,4 @@
-package org.fiware.vcAuthentication.it.components;
+package org.fiware.vcauthentication.it.components;
 
 import com.auth0.jwk.Jwk;
 import com.auth0.jwk.JwkException;
@@ -19,7 +19,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 import org.apache.http.HttpStatus;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
-import org.fiware.vcAuthentication.it.components.model.OpenIdConfiguration;
+import org.fiware.vcauthentication.it.components.model.OpenIdConfiguration;
 import org.keycloak.common.crypto.CryptoIntegration;
 
 import java.net.MalformedURLException;
@@ -27,7 +27,7 @@ import java.net.URL;
 import java.security.Security;
 import java.security.interfaces.RSAPublicKey;
 
-import static org.fiware.vcAuthentication.it.components.OrganizationEnvironment.TEST_USER_NAME;
+import static org.fiware.vcauthentication.it.components.OrganizationEnvironment.TEST_USER_NAME;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**

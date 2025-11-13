@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.fiware.vcAuthentication.it.components.model;
+package org.fiware.vcauthentication.it.components.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;

@@ -1,4 +1,4 @@
-package org.fiware.vcAuthentication.it.components.model;
+package org.fiware.vcauthentication.it.components.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;

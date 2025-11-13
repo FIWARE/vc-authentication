@@ -1,4 +1,4 @@
-package org.fiware.vcAuthentication.it.components.model;
+package org.fiware.vcauthentication.it.components.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -13,14 +13,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SupportedConfiguration {
+public class TokenResponse {
 
-    @JsonProperty("id")
-    private String id;
+    @JsonProperty("access_token")
+    private String accessToken;
+    @JsonProperty("token_type")
+    private String tokenType;
+    @JsonProperty("expires_in")
+    private long expiresIn;
 
-    @JsonProperty("format")
-    private Format format;
-
-    @JsonProperty("scope")
-    private String scope;
 }

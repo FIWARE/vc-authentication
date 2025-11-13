@@ -1,4 +1,4 @@
-package org.fiware.vcAuthentication.it.components;
+package org.fiware.vcauthentication.it.components;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;

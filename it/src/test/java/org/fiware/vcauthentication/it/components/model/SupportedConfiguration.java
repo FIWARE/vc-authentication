@@ -1,4 +1,4 @@
-package org.fiware.vcAuthentication.it.components.model;
+package org.fiware.vcauthentication.it.components.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -13,8 +13,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Grant {
+public class SupportedConfiguration {
 
-    @JsonProperty("pre-authorized_code")
-    private String preAuthorizedCode;
+    @JsonProperty("id")
+    private String id;
+
+    @JsonProperty("format")
+    private Format format;
+
+    @JsonProperty("scope")
+    private String scope;
 }

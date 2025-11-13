@@ -1,4 +1,4 @@
-package org.fiware.vcAuthentication.it.components.model;
+package org.fiware.vcauthentication.it.components.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -16,14 +16,17 @@ import java.util.Map;
 @AllArgsConstructor
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class CredentialOffer {
+public class IssuerConfiguration {
 
-    @JsonProperty("grants")
-    private Map<String, Grant> grants;
+    @JsonProperty("credential_endpoint")
+    private String credentialEndpoint;
 
     @JsonProperty("credential_issuer")
     private String credentialIssuer;
 
-    @JsonProperty("credential_configuration_ids")
-    private List<String> credentialConfigurationIds;
+    @JsonProperty("authorization_servers")
+    private List<String> authorizationServers;
+
+    @JsonProperty("credential_configurations_supported")
+    private Map<String, SupportedConfiguration> credentialConfigurationsSupported;
 }
