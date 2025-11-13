@@ -54,8 +54,6 @@ initContainers:
         cd /did-material
         wget http://did-helper:3001/did-material/cert.pfx
         wget http://did-helper:3001/did-material/did.env
-        echo "" >> /did-material/did.env
-        echo "CLIENT_DID=did:key:zDnaeweD2CZEV3GArTbbfUtM3PS5LM2QXx1Ahu1KroezYN6qS" >> /did-material/did.env
         echo $(cat /did-material/did.env)
     volumeMounts:
       - name: did-material
