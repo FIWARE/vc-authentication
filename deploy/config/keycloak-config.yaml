@@ -1,13 +1,4 @@
 apiVersion: v1
-kind: Secret
-metadata:
-  name: keycloak-master-secret
-type: Opaque
-data:
-  username: YWRtaW4=
-  password: Z2dnak9IdDdvMg==
----
-apiVersion: v1
 kind: ConfigMap
 metadata:
   name: test-realm-realm
@@ -22,19 +13,7 @@ data:
       "enabled": true,
       "attributes": {
         "frontendUrl": "https://keycloak.127.0.0.1.nip.io:8443",
-        "issuerDid": "${DID}"
-        ,
-        
         "issuerDid": "${DID}",
-        "vc.user-sd.credential_signing_alg_values_supported": "ES256",
-        "vc.user-sd.credential_build_config.signing_algorithm": "ES256",
-        "vc.user-sd.credential_build_config.token_jws_type": "vc+sd-jwt",
-        "vc.user-sd.credential_build_config.proof_types_supported": "{\"jwt\":{\"proof_signing_alg_values_supported\":[\"ES256\"]}}",
-        "vc.user-sd.format": "vc+sd-jwt",
-        "vc.user-sd.scope": "LegalPersonCredential",
-        "vc.user-sd.vct": "LegalPersonCredential",
-        "vc.user-sd.credential_build_config.visible_claims": "roles,email",
-        "vc.user-sd.credential_build_config.decoys": "3",
         "vc.user-credential.credential_signing_alg_values_supported": "ES256",
         "vc.user-credential.credential_build_config.signing_algorithm": "ES256",
         "vc.user-credential.credential_build_config.token_jws_type": "JWT",
@@ -42,9 +21,6 @@ data:
         "vc.user-credential.format": "jwt_vc",
         "vc.user-credential.scope": "UserCredential",
         "vc.user-credential.vct": "UserCredential",
-        "vc.verifiable-credential.format": "vc+sd-jwt",
-        "vc.verifiable-credential.scope": "VerifiableCredential",
-        "vc.verifiable-credential.vct": "VerifiableCredential",
         "vc.operator-credential.credential_signing_alg_values_supported": "ES256",
         "vc.operator-credential.credential_build_config.signing_algorithm": "ES256",
         "vc.operator-credential.credential_build_config.token_jws_type": "JWT",
@@ -104,7 +80,7 @@ data:
         ],
         "client": {
           
-          "${CLIENT_DID}": [
+          "CLIENT_DID_PLACEHOLDER": [
             {
               "name": "customer",
               "description": "Is allowed to see offers etc.",
@@ -233,7 +209,7 @@ data:
             }
           ],
           "clientRoles": {
-            "${CLIENT_DID}": [
+            "CLIENT_DID_PLACEHOLDER": [
               "customer",
               "REPRESENTATIVE",
               "READER"
@@ -260,7 +236,7 @@ data:
             }
           ],
           "clientRoles": {
-            "${CLIENT_DID}": [
+            "CLIENT_DID_PLACEHOLDER": [
               "OPERATOR"
             ],
             "account": [
@@ -285,7 +261,7 @@ data:
             }
           ],
           "clientRoles": {
-            "${CLIENT_DID}": [
+            "CLIENT_DID_PLACEHOLDER": [
               "REPRESENTATIVE"
             ],
             "account": [
@@ -301,7 +277,7 @@ data:
       ],
       "clients": [
         {
-          "clientId": "${CLIENT_DID}",
+          "clientId": "CLIENT_DID_PLACEHOLDER",
           "enabled": true,
           "description": "Client to connect test.org",
           "surrogateAuthRequired": false,
@@ -436,7 +412,6 @@ data:
             "offline_access",
             "organization",
             "microprofile-jwt",
-            "LegalPersonCredential",
             "OperatorCredential",
             "UserCredential"
           ]
@@ -986,138 +961,6 @@ data:
               }
             }
           ]
-        }
-        ,
-        
-        {
-          "name": "LegalPersonCredential",
-          "description": "OIDC4VC Scope, that adds all properties required for a user.",
-          "protocol": "openid-connect",
-          "attributes": {
-            "include.in.token.scope": "false",
-            "display.on.consent.screen": "false"
-          },
-          "protocolMappers": [
-            {
-              "name": "context-mapper",
-              "protocol": "oid4vc",
-              "protocolMapper": "oid4vc-context-mapper",
-              "config": {
-                "context": "https://www.w3.org/2018/credentials/v1",
-                "supportedCredentialTypes": "VerifiableCredential,LegalPersonCredential,OperatorCredential,UserCredential"
-              }
-            },
-            {
-              "name": "email-mapper",
-              "protocol": "oid4vc",
-              "protocolMapper": "oid4vc-user-attribute-mapper",
-              "config": {
-                "subjectProperty": "email",
-                "userAttribute": "email",
-                "supportedCredentialTypes": "LegalPersonCredential,OperatorCredential,UserCredential"
-              }
-            },
-            {
-              "name": "firstName-mapper",
-              "protocol": "oid4vc",
-              "protocolMapper": "oid4vc-user-attribute-mapper",
-              "config": {
-                "subjectProperty": "firstName",
-                "userAttribute": "firstName",
-                "supportedCredentialTypes": "LegalPersonCredential,OperatorCredential,UserCredential"
-              }
-            },
-            {
-              "name": "subject-mapper",
-              "protocol": "oid4vc",
-              "protocolMapper": "oid4vc-static-claim-mapper",
-              "config": {
-                "subjectProperty": "subject",
-                "staticValue": "did:key:zDnaeiVpxCT7ARwqLndbWiCeGG2YZXvLfWFs1cGPgKUe8GPLe",
-                "supportedCredentialTypes": "LegalPersonCredential"
-              }
-            },
-            {
-              "name": "street-mapper",
-              "protocol": "oid4vc",
-              "protocolMapper": "oid4vc-static-claim-mapper",
-              "config": {
-                "subjectProperty": "street",
-                "staticValue": "Main Street",
-                "supportedCredentialTypes": "LegalPersonCredential"
-              }
-            },
-            {
-              "name": "lastName-mapper",
-              "protocol": "oid4vc",
-              "protocolMapper": "oid4vc-user-attribute-mapper",
-              "config": {
-                "subjectProperty": "lastName",
-                "userAttribute": "lastName",
-                "supportedCredentialTypes": "LegalPersonCredential,OperatorCredential"
-              }
-            },
-            {
-              "name": "role-mapper",
-              "protocol": "oid4vc",
-              "protocolMapper": "oid4vc-target-role-mapper",
-              "config": {
-                "subjectProperty": "roles",
-                "clientId": "${CLIENT_DID}",
-                "supportedCredentialTypes": "LegalPersonCredential,OperatorCredential,UserCredential"
-              }
-            },
-            {
-              "name": "streetNumber-mapper",
-              "protocol": "oid4vc",
-              "protocolMapper": "oid4vc-static-claim-mapper",
-              "config": {
-                "subjectProperty": "streetNumber",
-                "staticValue": "10",
-                "supportedCredentialTypes": "LegalPersonCredential"
-              }
-            },
-            {
-              "name": "city-mapper",
-              "protocol": "oid4vc",
-              "protocolMapper": "oid4vc-static-claim-mapper",
-              "config": {
-                "subjectProperty": "city",
-                "staticValue": "Dresden",
-                "supportedCredentialTypes": "LegalPersonCredential"
-              }
-            },
-            {
-              "name": "region-mapper",
-              "protocol": "oid4vc",
-              "protocolMapper": "oid4vc-static-claim-mapper",
-              "config": {
-                "subjectProperty": "region",
-                "staticValue": "Saxony",
-                "supportedCredentialTypes": "LegalPersonCredential"
-              }
-            },
-            {
-              "name": "country-mapper",
-              "protocol": "oid4vc",
-              "protocolMapper": "oid4vc-static-claim-mapper",
-              "config": {
-                "subjectProperty": "country",
-                "staticValue": "Germany",
-                "supportedCredentialTypes": "LegalPersonCredential"
-              }
-            },
-            {
-              "name": "zipcode-mapper",
-              "protocol": "oid4vc",
-              "protocolMapper": "oid4vc-static-claim-mapper",
-              "config": {
-                "subjectProperty": "zipcode",
-                "staticValue": "01169",
-                "supportedCredentialTypes": "LegalPersonCredential"
-              }
-            }
-          ]
         },
         {
           "name": "UserCredential",
@@ -1190,7 +1033,7 @@ data:
               "protocolMapper": "oid4vc-target-role-mapper",
               "config": {
                 "subjectProperty": "roles",
-                "clientId": "${CLIENT_DID}",
+                "clientId": "CLIENT_DID_PLACEHOLDER",
                 "supportedCredentialTypes": "UserCredential"
               }
             },
@@ -1258,7 +1101,7 @@ data:
               "protocolMapper": "oid4vc-context-mapper",
               "config": {
                 "context": "https://www.w3.org/2018/credentials/v1",
-                "supportedCredentialTypes": "VerifiableCredential,LegalPersonCredential,OperatorCredential,UserCredential"
+                "supportedCredentialTypes": "OperatorCredential,UserCredential"
               }
             },
             {
@@ -1268,7 +1111,7 @@ data:
               "config": {
                 "subjectProperty": "email",
                 "userAttribute": "email",
-                "supportedCredentialTypes": "LegalPersonCredential,OperatorCredential,UserCredential"
+                "supportedCredentialTypes": "OperatorCredential,UserCredential"
               }
             },
             {
@@ -1278,7 +1121,7 @@ data:
               "config": {
                 "subjectProperty": "firstName",
                 "userAttribute": "firstName",
-                "supportedCredentialTypes": "LegalPersonCredential,OperatorCredential,UserCredential"
+                "supportedCredentialTypes": "OperatorCredential,UserCredential"
               }
             },
             {
@@ -1287,8 +1130,8 @@ data:
               "protocolMapper": "oid4vc-target-role-mapper",
               "config": {
                 "subjectProperty": "roles",
-                "clientId": "${CLIENT_DID}",
-                "supportedCredentialTypes": "LegalPersonCredential,OperatorCredential,UserCredential"
+                "clientId": "CLIENT_DID_PLACEHOLDER",
+                "supportedCredentialTypes": "OperatorCredential,UserCredential"
               }
             },
             {

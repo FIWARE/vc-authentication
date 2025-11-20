@@ -1,4 +1,4 @@
-package org.fiware.vcAuthentication.it.components;
+package org.fiware.vcauthentication.it.components;
 
 
 import io.ipfs.multibase.Multibase;
@@ -8,7 +8,7 @@ import okhttp3.*;
 import org.apache.http.HttpStatus;
 import org.bouncycastle.jce.interfaces.ECPublicKey;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
-import org.fiware.vcAuthentication.it.components.model.*;
+import org.fiware.vcauthentication.it.components.model.*;
 import org.keycloak.crypto.ECDSASignatureSignerContext;
 import org.keycloak.crypto.KeyUse;
 import org.keycloak.crypto.KeyWrapper;
@@ -21,7 +21,7 @@ import java.security.spec.ECGenParameterSpec;
 import java.time.Clock;
 import java.util.*;
 
-import static org.fiware.vcAuthentication.it.components.TestUtils.OBJECT_MAPPER;
+import static org.fiware.vcauthentication.it.components.TestUtils.OBJECT_MAPPER;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**

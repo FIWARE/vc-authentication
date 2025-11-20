@@ -1,4 +1,4 @@
-package org.fiware.vcAuthentication.it.components;
+package org.fiware.vcauthentication.it.components;
 
 import jakarta.ws.rs.client.ClientBuilder;
 import lombok.RequiredArgsConstructor;
