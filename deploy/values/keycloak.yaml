@@ -9,10 +9,6 @@ postgresql:
 proxyHeaders: xforwarded
 httpEnabled: true
 
-auth:
-  existingSecret: keycloak-master-secret
-  passwordSecretKey: password
-  adminUser: user
 containerSecurityContext:
   enabled: false
 externalDatabase:
