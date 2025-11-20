@@ -19,21 +19,20 @@ This project is part of [FIWARE](https://www.fiware.org/). For more information 
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**
 
-- [vc-authentication](#vc-authentication)
-  - [Overview](#overview)
-  - [Release Information](#release-information)
-  - [Components](#components)
-  - [Description of flows in vc-authentication](#description-of-flows-in-vc-authentication)
-    - [Registration](#registration)
-    - [Authenticated access to a service](#authenticated-access-to-a-service)
-      - [Human-To-Machine (H2M)](#human-to-machine-h2m)
-      - [Machine-To-Machine (M2M)](#machine-to-machine-m2m)
-  - [Deployment](#deployment)
-    - [Local Deployment](#local-deployment)
-    - [Deployment with Helm](#deployment-with-helm)
-  - [Testing](#testing)
-  - [How to contribute](#how-to-contribute)
-  - [License](#license)
+- [Overview](#overview)
+- [Release Information](#release-information)
+- [Components](#components)
+- [Description of flows in vc-authentication](#description-of-flows-in-vc-authentication)
+  - [Registration](#registration)
+  - [Authenticated access to a service](#authenticated-access-to-a-service)
+    - [Human-To-Machine (H2M)](#human-to-machine-h2m)
+    - [Machine-To-Machine (M2M)](#machine-to-machine-m2m)
+- [Deployment](#deployment)
+  - [Local Deployment](#local-deployment)
+  - [Deployment with Helm](#deployment-with-helm)
+- [Testing](#testing)
+- [How to contribute](#how-to-contribute)
+- [License](#license)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
