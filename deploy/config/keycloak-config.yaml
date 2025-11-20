@@ -1,13 +1,4 @@
 apiVersion: v1
-kind: Secret
-metadata:
-  name: keycloak-master-secret
-type: Opaque
-data:
-  username: YWRtaW4=
-  password: Z2dnak9IdDdvMg==
----
-apiVersion: v1
 kind: ConfigMap
 metadata:
   name: test-realm-realm
