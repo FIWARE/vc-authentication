@@ -14,7 +14,6 @@ data:
       "attributes": {
         "frontendUrl": "https://keycloak.127.0.0.1.nip.io:8443",
         "issuerDid": "${DID}",
-        "issuerDid": "${DID}",
         "vc.user-credential.credential_signing_alg_values_supported": "ES256",
         "vc.user-credential.credential_build_config.signing_algorithm": "ES256",
         "vc.user-credential.credential_build_config.token_jws_type": "JWT",
@@ -81,7 +80,7 @@ data:
         ],
         "client": {
           
-          "${DID}": [
+          "CLIENT_DID_PLACEHOLDER": [
             {
               "name": "customer",
               "description": "Is allowed to see offers etc.",
@@ -210,7 +209,7 @@ data:
             }
           ],
           "clientRoles": {
-            "${DID}": [
+            "CLIENT_DID_PLACEHOLDER": [
               "customer",
               "REPRESENTATIVE",
               "READER"
@@ -237,7 +236,7 @@ data:
             }
           ],
           "clientRoles": {
-            "${DID}": [
+            "CLIENT_DID_PLACEHOLDER": [
               "OPERATOR"
             ],
             "account": [
@@ -262,7 +261,7 @@ data:
             }
           ],
           "clientRoles": {
-            "${DID}": [
+            "CLIENT_DID_PLACEHOLDER": [
               "REPRESENTATIVE"
             ],
             "account": [
@@ -278,7 +277,7 @@ data:
       ],
       "clients": [
         {
-          "clientId": "${DID}",
+          "clientId": "CLIENT_DID_PLACEHOLDER",
           "enabled": true,
           "description": "Client to connect test.org",
           "surrogateAuthRequired": false,
@@ -1034,7 +1033,7 @@ data:
               "protocolMapper": "oid4vc-target-role-mapper",
               "config": {
                 "subjectProperty": "roles",
-                "clientId": "${DID}",
+                "clientId": "CLIENT_DID_PLACEHOLDER",
                 "supportedCredentialTypes": "UserCredential"
               }
             },
@@ -1131,7 +1130,7 @@ data:
               "protocolMapper": "oid4vc-target-role-mapper",
               "config": {
                 "subjectProperty": "roles",
-                "clientId": "${DID}",
+                "clientId": "CLIENT_DID_PLACEHOLDER",
                 "supportedCredentialTypes": "OperatorCredential,UserCredential"
               }
             },
