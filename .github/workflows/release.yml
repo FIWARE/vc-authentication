@@ -44,7 +44,7 @@ jobs:
                         break
                 esac
             done
-          
+
         - uses: zwaldowski/semver-release-action@v2
           with:
             dry_run: true
@@ -104,13 +104,3 @@ jobs:
           with:
             TARGET_PATHS: "./README.md,./doc/README.md"
             COMMIT_MESSAGE: "Update ToC"
-
-        - uses: "marvinpinto/action-automatic-releases@latest"
-          with:
-            repo_token: "${{ secrets.GITHUB_TOKEN }}"
-            automatic_release_tag: ${{ needs.generate-version.outputs.version }}
-            prerelease: false
-            title: ${{ needs.generate-version.outputs.version }}
-            files: |
-              LICENSE
-
