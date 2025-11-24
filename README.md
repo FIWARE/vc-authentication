@@ -204,7 +204,7 @@ the [test-scenarios](./it/src/test/resources/it/mvds_basic.feature) against it.
 Please, check the doc [here](doc/CONTRIBUTING.md).
 
 ## License
-vc-authentication is licensed under [MIT License](LICENSE).
+vc-authentication is licensed under [Apache 2.0 License](LICENSE).
 
 For the avoidance of doubt, the owners of this software
 wish to make a clarifying public statement as follows:
