@@ -1,4 +1,4 @@
-package org.fiware.vcAuthentication.it.components;
+package org.fiware.vcauthentication.it.components;
 
 import org.junit.platform.suite.api.ConfigurationParameter;
 import org.junit.platform.suite.api.IncludeEngines;

@@ -1,11 +1,11 @@
-package org.fiware.vcAuthentication.it.components;
+package org.fiware.vcauthentication.it.components;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.apache.http.HttpStatus;
-import org.fiware.vcAuthentication.it.components.model.OpenIdConfiguration;
+import org.fiware.vcauthentication.it.components.model.OpenIdConfiguration;
 
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;

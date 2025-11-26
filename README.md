@@ -139,6 +139,10 @@ The following displays the different steps for the two different types of intera
 
 ## Deployment
 
+> :warning: The `deploy` directory in the repository contains everything necessary to set up the [local deployment](#local-deployment), with all required dependencies ready for use. However, **the `deploy` directory must not be used as is for deployments in real or production environments**.
+
+> :warning: The passwords used in the `deploy` config dir for the [local deployment](#local-deployment), although they may appear secure, have been provided for the sake of greater reproducibility (to prevent consecutive deployments from modifying the stored and configured credentials, thus avoiding errors). However, **under no circumstances should they be used in real or production environments**.
+
 ### Local Deployment
 
 The FIWARE Verifiable Credential Authentication provides a minimal local deployment setup intended for development and testing purposes.
@@ -179,6 +183,7 @@ The chart is available at the repository ```https://fiware.github.io/vc-authenti
     # install the chart
     helm install <DeploymentName> vc-authentication/vc-authentication -n <Namespace> -f values.yaml
 ```
+
 **Note,** that due to the app-of-apps structure of the deployment and the different dependencies between the components, a deployment without providing any configuration values will not work. Make sure to provide a 
 `values.yaml` file for the deployment, specifying all necessary parameters. This includes setting parameters of the endpoints, DNS information (providing Ingress or OpenShift Route parameters), 
 structure and type of the required VCs, internal hostnames of the different components and providing the configuration of the DID and keys/certs.
