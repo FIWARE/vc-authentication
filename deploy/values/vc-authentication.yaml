@@ -77,6 +77,10 @@ trusted-issuers-list:
       className: nginx
       hosts:
         - host: til.127.0.0.1.nip.io
+  config:
+    datasources:
+      default:
+        dialect: MYSQL
 
 credentials-config-service:
   deployment:

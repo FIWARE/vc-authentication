@@ -7,9 +7,9 @@ dependencies:
   version: 2.3.0
 - name: trusted-issuers-list
   repository: https://fiware.github.io/helm-charts
-  version: 0.10.7
+  version: 0.10.8
 - name: mysql
   repository: https://charts.bitnami.com/bitnami
   version: 12.2.2
-digest: sha256:28da62e684ccfa8a35b9133990c7a82b4a705d2a2daffc3f9e114ef1b954f033
-generated: "2025-12-16T10:56:00.971747+01:00"
+digest: sha256:59a14444a368ef4eb8d7a423cf1f5e1c863ba0b32437eb5e15c4917fc0c77eb5
+generated: "2025-12-16T15:52:22.981468+01:00"
