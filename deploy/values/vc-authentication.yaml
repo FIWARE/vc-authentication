@@ -68,24 +68,30 @@ vcverifier:
 trusted-issuers-list:
   ingress:
     tir:
-      annotations:
-        kubernetes.io/ingress.class: "nginx" # Workaround since chart does not set className properly
       enabled: true
+      className: nginx
       hosts:
         - host: tir.127.0.0.1.nip.io
     til:
       enabled: true
-      annotations:
-        kubernetes.io/ingress.class: "nginx" # Workaround since chart does not set className properly
+      className: nginx
       hosts:
         - host: til.127.0.0.1.nip.io
+  config:
+    datasources:
+      default:
+        dialect: MYSQL
 
 credentials-config-service:
+  deployment:
+    image: 
+      tag: 3.3.3
   registration:
     enabled: true
     services:
       - id: data-service
         defaultOidcScope: "default"
+        authorizationType: "FRONTEND_V2"
         oidcScopes:
           "default":
             credentials:
