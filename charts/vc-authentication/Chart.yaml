@@ -6,15 +6,15 @@ version: 0.1.1
 dependencies:
   - name: vcverifier
     condition: vcverifier.enabled
-    version: 4.1.2
+    version: 4.3.2
     repository: https://fiware.github.io/helm-charts
   - name: credentials-config-service
     condition: credentials-config-service.enabled
-    version: 2.1.12
+    version: 2.3.0
     repository: https://fiware.github.io/helm-charts
   - name: trusted-issuers-list
     condition: trusted-issuers-list.enabled
-    version: 0.10.3
+    version: 0.10.7
     repository: https://fiware.github.io/helm-charts
   - name: mysql
     condition: mysql.enabled
