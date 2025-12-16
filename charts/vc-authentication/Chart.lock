@@ -4,12 +4,12 @@ dependencies:
   version: 4.3.2
 - name: credentials-config-service
   repository: https://fiware.github.io/helm-charts
-  version: 2.3.0
+  version: 2.4.0
 - name: trusted-issuers-list
   repository: https://fiware.github.io/helm-charts
   version: 0.10.8
 - name: mysql
   repository: https://charts.bitnami.com/bitnami
   version: 12.2.2
-digest: sha256:59a14444a368ef4eb8d7a423cf1f5e1c863ba0b32437eb5e15c4917fc0c77eb5
-generated: "2025-12-16T15:52:22.981468+01:00"
+digest: sha256:f3987947e5228e97fb659c604e479b0eb1bc01a5ca951281aea9f6263f36b65a
+generated: "2025-12-16T16:03:55.175057+01:00"
