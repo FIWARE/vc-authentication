@@ -39,6 +39,9 @@ public class Wallet {
 
     private static final OkHttpClient HTTP_CLIENT = TestUtils.OK_HTTP_CLIENT;
 
+    private static final String AUTHORIZATION_HEADER = "Authorization";
+    private static final String BEARER_KEYWORD = "Bearer ";
+
     private final KeyWrapper walletKey;
     private final String did;
 
@@ -122,7 +125,7 @@ public class Wallet {
         Request request = new Request.Builder()
                 .url(issuerHost + CREDENTIAL_OFFER_URI_PATH + "?credential_configuration_id=" + credentialConfigId)
                 .get()
-                .header("Authorization", "Bearer " + keycloakJwt)
+                .header(AUTHORIZATION_HEADER, BEARER_KEYWORD + keycloakJwt)
                 .build();
 
         Response uriResponse = HTTP_CLIENT.newCall(request).execute();
@@ -138,7 +141,7 @@ public class Wallet {
         Request uriRequest = new Request.Builder()
                 .get()
                 .url(offerUri.getIssuer() + offerUri.getNonce())
-                .header("Authorization", "Bearer " + keycloakJwt)
+                .header(AUTHORIZATION_HEADER, BEARER_KEYWORD + keycloakJwt)
                 .build();
 
         Response offerResponse = HTTP_CLIENT.newCall(uriRequest).execute();
@@ -187,7 +190,7 @@ public class Wallet {
         Request credentialHttpRequest = new Request.Builder()
                 .post(credentialRequestBody)
                 .url(credentialEndpoint)
-                .header("Authorization", "Bearer " + token)
+                .header(AUTHORIZATION_HEADER, BEARER_KEYWORD + token)
                 .header("Content-Type", MediaType.APPLICATION_JSON)
                 .build();
 
