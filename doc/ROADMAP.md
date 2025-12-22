@@ -19,11 +19,11 @@ the product planned for **{{date}}**:
 <!-- {{bullet list of features/tasks}} - this should be a simple list of features you plan to address in the given period.
 Try to be comprehensive as well as short in the description of each feature (**2 lines max**). -->
 
+- Upgrade keycloak version and migrate to not bitnami distribution.
+
 - Update dependencies to use latest compatible versions.
 
--   Remove all bitnami dependencies (change bitnami MySQL to [PSQL Operator](https://github.com/zalando/postgres-operator)).
-
--   Improve integration tests.
+- Improve integration tests.
 
 <!-- {{If the description of a given feature will need more elaboration, please add
 the following text after end of the description}}:
