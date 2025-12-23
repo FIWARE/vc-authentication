@@ -3,6 +3,8 @@ repositories:
   url: https://kubernetes.github.io/ingress-nginx
 - name: postgres-operator
   url: https://opensource.zalando.com/postgres-operator/charts/postgres-operator
+- name: fiware
+  url: https://fiware.github.io/helm-charts
 
 
 releases:
@@ -58,10 +60,20 @@ releases:
       - "{{ .Release.Namespace }}"
       - "-f"
       - "./config/keycloak-config.yaml"
+  - events: ["presync"]
+    showlogs: true
+    command: "kubectl"
+    args:
+      - "apply"
+      - "-n"
+      - "{{ .Release.Namespace }}"
+      - "-f"
+      - "./config/did-helper-keystore-pwd.yaml"
 
 - name: did-helper
   namespace: keycloak
-  chart: ./aux-charts/did-helper
+  chart: fiware/did-helper
+  version: 0.1.6
   labels:
     deploy: infra
   needs:
