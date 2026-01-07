@@ -4,12 +4,12 @@ dependencies:
   version: 4.3.2
 - name: credentials-config-service
   repository: https://fiware.github.io/helm-charts
-  version: 2.4.0
+  version: 2.4.4
 - name: trusted-issuers-list
   repository: https://fiware.github.io/helm-charts
   version: 0.10.8
 - name: postgres-operator
   repository: https://opensource.zalando.com/postgres-operator/charts/postgres-operator
   version: 1.15.1
-digest: sha256:a804b74212ac9d11b74dc91b4439f22ba22247c8c48bcd5f3c0a5e1bccf03187
-generated: "2025-12-18T14:44:37.619294+01:00"
+digest: sha256:52d5450da57e072a2e299c77ced3df562cead480188eacd57802a8b4b67607de
+generated: "2026-01-07T15:40:23.051054+01:00"
