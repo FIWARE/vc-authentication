@@ -73,13 +73,23 @@ releases:
 - name: did-helper
   namespace: keycloak
   chart: fiware/did-helper
-  version: 0.1.6
+  version: 0.1.8
   labels:
     deploy: infra
   needs:
     - ingress-nginx/ingress-nginx
   values:
     - values/did-helper.yaml
+  hooks:
+  - events: ["presync"]
+    showlogs: true
+    command: "kubectl"
+    args:
+      - "apply"
+      - "-n"
+      - "{{ .Release.Namespace }}"
+      - "-f"
+      - "./config/did-material-pvc.yaml"
 
 - name: vc-authentication
   namespace: vc-authentication
