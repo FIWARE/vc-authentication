@@ -1,7 +1,17 @@
-mysql:
-  primary:
-    persistence:
-      enabled: false
+postgres-operator:
+  configKubernetes:
+    enable_cross_namespace_secret: true
+
+managedPostgres:
+  enabled: true
+  config:
+    volume:
+      storageClass: "local-path"
+    users:
+      keycloak.keycloak:
+        - createdb
+    databases:
+      keycloak: keycloak.keycloak
 
 vcverifier:
   ingress:
@@ -39,13 +49,6 @@ vcverifier:
       - name: root-ca
         mountPath: /etc/ssl/cert.pem
         subPath: cert.pem
-    # additionalEnvVars:
-    #   - name: HTTPS_PROXY
-    #     value: "http://squid-proxy.infra.svc.cluster.local:8888"
-    #   - name: HTTP_PROXY
-    #     value: "http://squid-proxy.infra.svc.cluster.local:8888"
-    #   - name: NO_PROXY
-    #     value: "credentials-config-service,w3.org,trusted-issuers-list"
     initContainers:
       # add the self generated root ca to the system truststore
       - name: add-root-ca
@@ -77,10 +80,6 @@ trusted-issuers-list:
       className: nginx
       hosts:
         - host: til.127.0.0.1.nip.io
-  config:
-    datasources:
-      default:
-        dialect: MYSQL
 
 credentials-config-service:
   registration:
