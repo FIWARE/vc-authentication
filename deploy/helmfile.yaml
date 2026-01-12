@@ -1,11 +1,8 @@
 repositories:
 - name: ingress-nginx
   url: https://kubernetes.github.io/ingress-nginx
-- name: postgres-operator
-  url: https://opensource.zalando.com/postgres-operator/charts/postgres-operator
 - name: fiware
   url: https://fiware.github.io/helm-charts
-
 
 releases:
 - name: ingress-nginx
@@ -23,23 +20,6 @@ releases:
       - "-f"
       - "./config/coredns.yaml"
 
-- name: psql
-  namespace: keycloak
-  chart: postgres-operator/postgres-operator
-  version: 1.13.0
-  labels:
-    deploy: infra
-  hooks:
-  - events: ["postsync"]
-    showlogs: true
-    command: "kubectl"
-    args:
-      - "apply"
-      - "-n"
-      - "{{ .Release.Namespace }}"
-      - "-f"
-      - "./config/postgresql.yaml"
-
 - name: keycloak
   namespace: keycloak
   chart: oci://registry-1.docker.io/bitnamicharts/keycloak
@@ -47,7 +27,7 @@ releases:
   labels:
     deploy: infra
   needs:
-    - keycloak/psql
+    - vc-authentication/vc-authentication
   values:
     - values/keycloak.yaml
   hooks:
