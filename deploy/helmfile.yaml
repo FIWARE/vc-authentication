@@ -46,6 +46,15 @@ releases:
       - "{{ .Release.Namespace }}"
       - "-f"
       - "./config/keycloak-config.yaml"
+  - events: ["presync"]
+    showlogs: true
+    command: "kubectl"
+    args:
+      - "apply"
+      - "-n"
+      - "{{ .Release.Namespace }}"
+      - "-f"
+      - "./config/did-helper-keystore-pwd.yaml"
 
 - name: did-helper
   namespace: keycloak
