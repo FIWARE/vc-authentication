@@ -1,6 +1,14 @@
 repositories:
 - name: ingress-nginx
   url: https://kubernetes.github.io/ingress-nginx
+- name: fiware
+  url: https://fiware.github.io/helm-charts
+
+hooks:
+- events: ["prepare"]
+  showlogs: true
+  command: "kubectl"
+  args: ["create", "namespace", "keycloak"]
 
 releases:
 - name: ingress-nginx
@@ -24,10 +32,10 @@ releases:
   version: 25.2.0
   labels:
     deploy: infra
-  needs:
-    - vc-authentication/vc-authentication
   values:
     - values/keycloak.yaml
+  needs:
+    - keycloak/did-helper
   hooks:
   - events: ["presync"]
     showlogs: true
@@ -38,16 +46,45 @@ releases:
       - "{{ .Release.Namespace }}"
       - "-f"
       - "./config/keycloak-config.yaml"
+  - events: ["presync"]
+    showlogs: true
+    command: "kubectl"
+    args:
+      - "apply"
+      - "-n"
+      - "{{ .Release.Namespace }}"
+      - "-f"
+      - "./config/did-helper-keystore-pwd.yaml"
 
 - name: did-helper
   namespace: keycloak
-  chart: ./aux-charts/did-helper
+  chart: fiware/did-helper
+  version: 0.1.9
   labels:
     deploy: infra
   needs:
     - ingress-nginx/ingress-nginx
   values:
     - values/did-helper.yaml
+  hooks:
+  - events: ["presync"]
+    showlogs: true
+    command: "kubectl"
+    args:
+      - "apply"
+      - "-n"
+      - "{{ .Release.Namespace }}"
+      - "-f"
+      - "./config/did-material-pvc.yaml"
+  - events: ["presync"]
+    showlogs: true
+    command: "kubectl"
+    args:
+      - "apply"
+      - "-n"
+      - "{{ .Release.Namespace }}"
+      - "-f"
+      - "./config/did-helper-keystore-pwd.yaml"
 
 - name: vc-authentication
   namespace: vc-authentication
