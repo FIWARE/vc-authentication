@@ -4,6 +4,11 @@ repositories:
 - name: fiware
   url: https://fiware.github.io/helm-charts
 
+hooks:
+- events: ["prepare"]
+  showlogs: true
+  command: "kubectl"
+  args: ["create", "namespace", "keycloak"]
 
 releases:
 - name: ingress-nginx
@@ -27,10 +32,10 @@ releases:
   version: 25.2.0
   labels:
     deploy: infra
-  needs:
-    - vc-authentication/vc-authentication
   values:
     - values/keycloak.yaml
+  needs:
+    - keycloak/did-helper
   hooks:
   - events: ["presync"]
     showlogs: true
@@ -41,15 +46,6 @@ releases:
       - "{{ .Release.Namespace }}"
       - "-f"
       - "./config/keycloak-config.yaml"
-  - events: ["presync"]
-    showlogs: true
-    command: "kubectl"
-    args:
-      - "apply"
-      - "-n"
-      - "{{ .Release.Namespace }}"
-      - "-f"
-      - "./config/did-helper-keystore-pwd.yaml"
 
 - name: did-helper
   namespace: keycloak
@@ -71,6 +67,15 @@ releases:
       - "{{ .Release.Namespace }}"
       - "-f"
       - "./config/did-material-pvc.yaml"
+  - events: ["presync"]
+    showlogs: true
+    command: "kubectl"
+    args:
+      - "apply"
+      - "-n"
+      - "{{ .Release.Namespace }}"
+      - "-f"
+      - "./config/did-helper-keystore-pwd.yaml"
 
 - name: vc-authentication
   namespace: vc-authentication
