@@ -54,7 +54,7 @@ releases:
 - name: did-helper
   namespace: keycloak
   chart: fiware/did-helper
-  version: 0.1.8
+  version: 0.1.9
   labels:
     deploy: infra
   needs:
