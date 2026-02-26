@@ -19,20 +19,21 @@ This project is part of [FIWARE](https://www.fiware.org/). For more information 
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**
 
-- [Overview](#overview)
-- [Release Information](#release-information)
-- [Components](#components)
-- [Description of flows in vc-authentication](#description-of-flows-in-vc-authentication)
-  - [Registration](#registration)
-  - [Authenticated access to a service](#authenticated-access-to-a-service)
-    - [Human-To-Machine (H2M)](#human-to-machine-h2m)
-    - [Machine-To-Machine (M2M)](#machine-to-machine-m2m)
-- [Deployment](#deployment)
-  - [Local Deployment](#local-deployment)
-  - [Deployment with Helm](#deployment-with-helm)
-- [Testing](#testing)
-- [How to contribute](#how-to-contribute)
-- [License](#license)
+- [vc-authentication](#vc-authentication)
+  - [Overview](#overview)
+  - [Release Information](#release-information)
+  - [Components](#components)
+  - [Description of flows in vc-authentication](#description-of-flows-in-vc-authentication)
+    - [Registration](#registration)
+    - [Authenticated access to a service](#authenticated-access-to-a-service)
+      - [Human-To-Machine (H2M)](#human-to-machine-h2m)
+      - [Machine-To-Machine (M2M)](#machine-to-machine-m2m)
+  - [Deployment](#deployment)
+    - [Local Deployment](#local-deployment)
+    - [Deployment with Helm](#deployment-with-helm)
+  - [Testing](#testing)
+  - [How to contribute](#how-to-contribute)
+  - [License](#license)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -70,6 +71,7 @@ The main components of the FIWARE Verifiable Credential Authentication are:
 | VCVerifier      | Validates VCs and exchanges them for tokens | https://github.com/FIWARE/VCVerifier |
 | credentials-config-service | Holds the information which VCs are required for accessing a service | https://github.com/FIWARE/credentials-config-service |
 | trusted-issuers-list | Acts as Trusted Issuers List by providing an [EBSI Trusted Issuers Registry](https://api-pilot.ebsi.eu/docs/apis/trusted-issuers-registry) API | https://github.com/FIWARE/trusted-issuers-list |
+|dss-validation-service|service for validating [JAdES Signatures](https://www.etsi.org/deliver/etsi_ts/119100_119199/11918201/01.01.01_60/ts_11918201v010101p.pdf) using the [eSignature Building Block Digital Signature Service library](https://github.com/esig/dss/tree/master)|[https://github.com/wistefan/dss-validation-service](https://github.com/wistefan/dss-validation-service)|
 
 **Note,** that the FIWARE Verifiable Credential Authentication does not include a Verifiable Credential Issuer nor a Verifiable Credential Wallet. Regarding the SQL database, any SQL database technology could be used theoretically, but it has been tested with both MySQL and PostgreSQL.
 
