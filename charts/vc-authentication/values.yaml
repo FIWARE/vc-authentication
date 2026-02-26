@@ -114,3 +114,14 @@ credentials-config-service:
     name: ccsdb
   registration:
     enabled: false
+
+# -- configuration for the digital-signature.service to be deployed as part of the connector in case of did:elsi support
+dss:
+  # -- should it be enabled?
+  enabled: false
+  # -- allows to set a fixed name for the services
+  fullnameOverride: dss
+  # -- can be used to provide the crl for ca's provided as truststore to the dss
+  crl:
+    # -- should it be enabled?
+    enabled: false
