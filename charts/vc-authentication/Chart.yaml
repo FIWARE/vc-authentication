@@ -16,6 +16,11 @@ dependencies:
     condition: trusted-issuers-list.enabled
     version: 0.10.8
     repository: https://fiware.github.io/helm-charts
+  - name: dss-validation-service
+    alias: dss
+    condition: dss.enabled
+    version: 0.0.18
+    repository: https://fiware.github.io/helm-charts
   - name: postgres-operator
     condition: postgres-operator.enabled
     version: 1.15.1
