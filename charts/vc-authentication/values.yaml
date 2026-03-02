@@ -52,11 +52,11 @@ trusted-issuers-list:
     # -- name of the db dialect
     dialect: POSTGRES
     # -- name of the db user
-    username: postgres
+    username: til
     # -- configuration for the existing secret to get the passwords from
     existingSecret:
       enabled: true
-      name: postgres.postgres.credentials.postgresql.acid.zalan.do
+      name: til.postgres.credentials.postgresql.acid.zalan.do
       key: password
     # -- host of the database
     host: postgres
@@ -100,11 +100,11 @@ credentials-config-service:
     # -- name of the db dialect
     dialect: POSTGRES
     # -- name of the db user
-    username: postgres
+    username: ccs
     # -- configuration for the existing secret to get the passwords from
     existingSecret:
       enabled: true
-      name: postgres.postgres.credentials.postgresql.acid.zalan.do
+      name: ccs.postgres.credentials.postgresql.acid.zalan.do
       key: password
     # -- host of the database
     host: postgres
