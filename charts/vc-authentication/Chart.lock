@@ -7,12 +7,12 @@ dependencies:
   version: 2.5.2
 - name: trusted-issuers-list
   repository: https://fiware.github.io/helm-charts
-  version: 0.16.0
+  version: 0.16.2
 - name: dss-validation-service
   repository: https://fiware.github.io/helm-charts
   version: 0.0.18
 - name: postgres-operator
   repository: https://opensource.zalando.com/postgres-operator/charts/postgres-operator
   version: 1.15.1
-digest: sha256:1f04b51814be3eb20c232753004574b2468bc591b1f9dbc97bfe204701d9daed
-generated: "2026-03-05T16:58:03.846901+01:00"
+digest: sha256:e32415a2b6f8691b6693d4405f499d6f7ea4a3e25ac3b55db4f341dcb99db867
+generated: "2026-04-09T10:04:47.011313067+02:00"
