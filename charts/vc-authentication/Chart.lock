@@ -1,7 +1,7 @@
 dependencies:
 - name: vcverifier
   repository: https://fiware.github.io/helm-charts
-  version: 4.7.3
+  version: 4.7.10
 - name: credentials-config-service
   repository: https://fiware.github.io/helm-charts
   version: 2.5.2
@@ -14,5 +14,5 @@ dependencies:
 - name: postgres-operator
   repository: https://opensource.zalando.com/postgres-operator/charts/postgres-operator
   version: 1.15.1
-digest: sha256:e32415a2b6f8691b6693d4405f499d6f7ea4a3e25ac3b55db4f341dcb99db867
-generated: "2026-04-09T10:04:47.011313067+02:00"
+digest: sha256:9b5f4f158251d8f2dd09da31a9398a3aa73c03ac70ecb4772e759cf2d5749b7f
+generated: "2026-04-09T15:22:17.235449671+02:00"
