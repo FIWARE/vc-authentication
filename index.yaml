@@ -2,6 +2,38 @@ apiVersion: v1
 entries:
   vc-authentication:
   - apiVersion: v2
+    created: "2026-04-09T08:19:17.697295195Z"
+    dependencies:
+    - condition: vcverifier.enabled
+      name: vcverifier
+      repository: https://fiware.github.io/helm-charts
+      version: 4.7.3
+    - condition: credentials-config-service.enabled
+      name: credentials-config-service
+      repository: https://fiware.github.io/helm-charts
+      version: 2.5.2
+    - condition: trusted-issuers-list.enabled
+      name: trusted-issuers-list
+      repository: https://fiware.github.io/helm-charts
+      version: 0.16.2
+    - alias: dss
+      condition: dss.enabled
+      name: dss-validation-service
+      repository: https://fiware.github.io/helm-charts
+      version: 0.0.18
+    - condition: postgres-operator.enabled
+      name: postgres-operator
+      repository: https://opensource.zalando.com/postgres-operator/charts/postgres-operator
+      version: 1.15.1
+    description: Umbrella Chart for the FIWARE vc-authentication, combining all essential
+      parts to be used by a participant.
+    digest: 79b03083cd8af22d11a6efe4bdcf8140e132084552c467e93064f7bbc9ec3622
+    name: vc-authentication
+    type: application
+    urls:
+    - https://github.com/FIWARE/vc-authentication/releases/download/vc-authentication-1.1.3/vc-authentication-1.1.3.tgz
+    version: 1.1.3
+  - apiVersion: v2
     created: "2026-03-06T07:33:11.912084673Z"
     dependencies:
     - condition: vcverifier.enabled
@@ -205,4 +237,4 @@ entries:
     urls:
     - https://github.com/FIWARE/vc-authentication/releases/download/vc-authentication-0.1.1/vc-authentication-0.1.1.tgz
     version: 0.1.1
-generated: "2026-03-06T07:33:11.91211602Z"
+generated: "2026-04-09T08:19:17.697331994Z"
