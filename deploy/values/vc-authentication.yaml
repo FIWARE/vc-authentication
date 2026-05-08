@@ -67,21 +67,6 @@ vcverifier:
           - name: certificates
             mountPath: /root-ca/cacert.pem
             subPath: cacert.pem
-
-trusted-issuers-list:
-  ingress:
-    tir:
-      enabled: true
-      className: nginx
-      hosts:
-        - host: tir.127.0.0.1.nip.io
-    til:
-      enabled: true
-      className: nginx
-      hosts:
-        - host: til.127.0.0.1.nip.io
-
-credentials-config-service:
   registration:
     enabled: true
     services:
@@ -98,3 +83,15 @@ credentials-config-service:
                 jwtInclusion:
                   enabled: true
                   fullInclusion: true
+trusted-issuers-list:
+  ingress:
+    tir:
+      enabled: true
+      className: nginx
+      hosts:
+        - host: tir.127.0.0.1.nip.io
+    til:
+      enabled: true
+      className: nginx
+      hosts:
+        - host: til.127.0.0.1.nip.io

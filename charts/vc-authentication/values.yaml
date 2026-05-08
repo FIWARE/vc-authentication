@@ -71,10 +71,24 @@ vcverifier:
   enabled: true
   # -- allows to set a fixed name for the services
   fullnameOverride: verifier
-  # -- configuration for the m2m flow, in case the tir is requiring authentication
-  m2m:
-    # -- we do not need authentication here
-    authEnabled: false
+  deployment:
+    # -- configuration for the m2m flow, in case the tir is requiring authentication
+    m2m:
+      # -- we do not need authentication here
+      authEnabled: false
+    database:
+      type: postgres
+      host: postgres
+      name: ccsdb
+      port: 5432
+      existingSecret:
+        name: ccs.postgres.credentials.postgresql.acid.zalan.do
+        usernameKey: username
+        passwordKey: password
+    configRepo:
+      configEndpoint: ''
+    configServer:
+      enabled: true
   # -- ingress configuration
   ingress:
     # -- should ingress be created
@@ -90,30 +104,7 @@ vcverifier:
 # -- configuration for the credentials-config-service to be deployed as part of the vc-authentication, see https://github.com/FIWARE/helm-charts/tree/main/charts/credentials-config-service for all options
 credentials-config-service:
   # -- should it be enabled? set to false if one outside the chart is used.
-  enabled: true
-  # -- allows to set a fixed name for the services
-  fullnameOverride: credentials-config-service
-  # -- connection to the database
-  database:
-    # -- should persistence be used?
-    persistence: true
-    # -- name of the db dialect
-    dialect: POSTGRES
-    # -- name of the db user
-    username: ccs
-    # -- configuration for the existing secret to get the passwords from
-    existingSecret:
-      enabled: true
-      name: ccs.postgres.credentials.postgresql.acid.zalan.do
-      key: password
-    # -- host of the database
-    host: postgres
-    # -- host of the database
-    port: 5432
-    # -- name of the schema inside the db
-    name: ccsdb
-  registration:
-    enabled: false
+  enabled: false
 
 # -- configuration for the digital-signature.service to be deployed as part of the connector in case of did:elsi support
 dss:
