@@ -3,7 +3,7 @@
 ##############################
 *.tgz
 charts/vc-authentication/charts/*
-
+charts/vc-authentication/Chart.lock
 ##############################
 ## Java
 ##############################
