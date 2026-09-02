@@ -6,7 +6,7 @@ version: 1.3.5
 dependencies:
   - name: vcverifier
     condition: vcverifier.enabled
-    version: 4.12.16
+    version: 4.12.23
     repository: https://fiware.github.io/helm-charts
   - name: credentials-config-service
     condition: credentials-config-service.enabled
