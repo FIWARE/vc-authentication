@@ -14,7 +14,7 @@ dependencies:
     repository: https://fiware.github.io/helm-charts
   - name: trusted-issuers-list
     condition: trusted-issuers-list.enabled
-    version: 0.18.4
+    version: 0.18.7
     repository: https://fiware.github.io/helm-charts
   - name: dss-validation-service
     alias: dss
