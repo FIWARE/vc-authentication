@@ -2,7 +2,7 @@ apiVersion: v2
 name: vc-authentication
 description: Umbrella Chart for the FIWARE vc-authentication, combining all essential parts to be used by a participant.
 type: application
-version: 1.3.6
+version: 1.3.7
 dependencies:
   - name: vcverifier
     condition: vcverifier.enabled
