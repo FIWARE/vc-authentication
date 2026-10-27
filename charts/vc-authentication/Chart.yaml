@@ -23,5 +23,5 @@ dependencies:
     repository: https://fiware.github.io/helm-charts
   - name: postgres-operator
     condition: postgres-operator.enabled
-    version: 1.15.1
+    version: 2.0.3
     repository: https://opensource.zalando.com/postgres-operator/charts/postgres-operator
