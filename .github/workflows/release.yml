@@ -58,7 +58,7 @@ jobs:
     # Publishes the charts, failing when a changed chart has no new version, see
     # https://github.com/SEAMWARE/github-workflows
     chart-release:
-      uses: SEAMWARE/github-workflows/.github/workflows/chart-release.yml@main
+      uses: SEAMWARE/github-workflows/.github/workflows/chart-release.yml@v1
       permissions:
         contents: write
 
