@@ -22,10 +22,8 @@ managedPostgres:
       version: "16"
     volume:
       size: 1Gi
+    # the operator creates the superuser `postgres` itself; each component connects with its own user
     users:
-      admin: # maintainer
-        - superuser
-        - createdb
       til:
         - createdb
       ccs:
